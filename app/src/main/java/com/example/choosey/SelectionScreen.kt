@@ -26,7 +26,23 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
-    val options = listOf("Burgers", "Chinese", "Chicken", "Pizza", "Indian", "Japanese", "Sushi")
+    val options = listOf(
+        "Chinese",
+        "Indian",
+        "Pizza",
+        "Fish & Chips",
+        "Burger",
+        "Turkish",
+        "Thai",
+        "Sushi",
+        "Italian",
+        "Mexican",
+        "Chicken",
+        "Japanese",
+        "Vegan",
+        "Vietnamese",
+        "Steakhouse"
+    )
 
     Column(
         modifier = Modifier

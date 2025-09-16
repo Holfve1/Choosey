@@ -54,7 +54,7 @@ fun ChooseyScreen(navController: NavController, vm: ChooseyViewModel, title: Str
             MainButton(
                 answer = answer,
                 onClick = {
-                    answer = vm.pickRandom() ?: "No choices selected"
+                    answer = vm.pickRandom()?.let {"Choosey chose $it"} ?:"No choices selected"
                 }
             )
         }
