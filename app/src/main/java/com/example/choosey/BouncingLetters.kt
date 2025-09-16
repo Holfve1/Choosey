@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,18 +15,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.choosey.ui.theme.FredokaOneFont
 import kotlinx.coroutines.delay
 
 
 @Composable
 fun SpringyBouncingLetters(
     word: String = "CHOOSEY",
-    amplitude: Dp = 20.dp
+    amplitude: Dp = 30.dp
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -36,17 +36,14 @@ fun SpringyBouncingLetters(
             val offsetY = remember { Animatable(0f) }
 
             LaunchedEffect(Unit) {
-                delay(index * 70L) // shorter stagger for faster wave
+                delay(index * 85L) // stagger per letter
                 offsetY.animateTo(
-                    targetValue = 0f,
+                    targetValue = -amplitude.value,
                     animationSpec = infiniteRepeatable(
-                        animation = keyframes {
-                            durationMillis = 1800
-                            -amplitude.value at 0
-                            amplitude.value at 900
-                            0f at 1800
-                        },
-                        repeatMode = RepeatMode.Restart
+                        animation = tween(
+                            durationMillis = 700, // time to move up
+                        ),
+                        repeatMode = RepeatMode.Reverse
                     )
                 )
             }
@@ -54,8 +51,7 @@ fun SpringyBouncingLetters(
             Text(
                 text = char.toString(),
                 fontSize = 50.sp,
-                fontWeight = FontWeight.ExtraBold,  // bold/balloon effect
-                fontFamily = FontFamily.Monospace,
+                fontFamily = FredokaOneFont,
                 modifier = Modifier.offset(y = offsetY.value.dp)
             )
         }
