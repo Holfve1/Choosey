@@ -21,19 +21,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun SelectionScreen(navController: NavController) {
+fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
     val options = listOf("Burgers", "Chinese", "Chicken", "Pizza", "Indian", "Japanese", "Sushi")
-    val choices = remember { mutableStateListOf<String>() }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
     ) {
-        // List area
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -46,21 +45,13 @@ fun SelectionScreen(navController: NavController) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(options, key = { it }) { option ->
-                    val selected = option in choices
+                    val selected = option in vm.choices
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            if (selected) choices.remove(option) else choices.add(option)
-                        },
+                        onClick = { vm.toggle(option) },
                         colors = CardDefaults.cardColors(
-                            containerColor = if (selected)
-                                Color(0xFF99c2ff)
-                            else
-                                MaterialTheme.colorScheme.surface,
-                            contentColor = if (selected)
-                                MaterialTheme.colorScheme.onPrimaryContainer
-                            else
-                                MaterialTheme.colorScheme.onSurface
+                            containerColor = if (selected) Color(0xFF99C2FF) else MaterialTheme.colorScheme.surface,
+                            contentColor = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
                         ),
                         elevation = CardDefaults.cardElevation(
                             defaultElevation = if (selected) 4.dp else 1.dp
@@ -76,14 +67,13 @@ fun SelectionScreen(navController: NavController) {
             }
         }
 
-        // Selection summary
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp)
         ) {
             Text(
-                text = if (choices.isEmpty()) "No selections yet" else choices.joinToString(", "),
+                text = if (vm.choices.isEmpty()) "No selections yet" else vm.choices.joinToString(", "),
                 fontSize = 16.sp
             )
         }
