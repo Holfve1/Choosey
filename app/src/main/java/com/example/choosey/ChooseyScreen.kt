@@ -22,7 +22,7 @@ import kotlin.random.Random
 
 
 @Composable
-fun ChooseyScreen(navController: NavController, title: String = "Choosey") {
+fun ChooseyScreen(navController: NavController, title: String = "CHOOSEY") {
     val answer = remember { mutableStateOf("Help Me Choosey")}
     Column ( modifier = Modifier
         .fillMaxSize()
@@ -32,16 +32,17 @@ fun ChooseyScreen(navController: NavController, title: String = "Choosey") {
     {
         Box ( modifier = Modifier
             .weight(1f),
-
+            contentAlignment = Alignment.Center,
             )
         {
-            Text(
-                text = title,
-                modifier = Modifier.fillMaxWidth(),
-                fontSize = 68.sp,
-                lineHeight = 116.sp,
-                textAlign = TextAlign.Center,
-            )
+//            Text(
+//                text = title,
+//                modifier = Modifier.fillMaxWidth(),
+//                fontSize = 68.sp,
+//                lineHeight = 116.sp,
+//                textAlign = TextAlign.Center,
+//            )
+            SpringyBouncingLetters(word = title)
         }
         Box (
             modifier = Modifier
