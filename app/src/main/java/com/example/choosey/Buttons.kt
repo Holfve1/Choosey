@@ -140,17 +140,15 @@ fun SelectionButton(onClick: () -> Unit) {
                     )
             )
 
+                Text("Choose your Selection",
+                    fontSize = 15.sp,
+                    lineHeight = 20.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color.White)
 
-            {
-        Text("Choose your Selection",
-            fontSize = 15.sp,
-            lineHeight = 20.sp,
-            textAlign = TextAlign.Center,
-            color = Color.White)
+        }
     }
 }
-    }
-    }
 
 
 
