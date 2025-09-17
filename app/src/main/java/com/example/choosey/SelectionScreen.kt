@@ -1,6 +1,7 @@
 package com.example.choosey
 
 import android.renderscript.ScriptGroup
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,6 +49,7 @@ fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
+            .background(Color(0xFF3A123E))
     ) {
         Box(
             modifier = Modifier
