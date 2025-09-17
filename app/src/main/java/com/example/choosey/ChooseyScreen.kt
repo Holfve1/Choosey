@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,8 +25,8 @@ import kotlin.random.Random
 
 
 @Composable
-fun ChooseyScreen(navController: NavController, title: String = "CHOOSEY") {
-    val answer = remember { mutableStateOf("Help Me Choosey")}
+fun ChooseyScreen(navController: NavController, vm: ChooseyViewModel, title: String = "Choosey") {
+    var answer by rememberSaveable { mutableStateOf("Help Me Choosey") }
     Column ( modifier = Modifier
         .fillMaxSize()
         .padding(20.dp),
@@ -44,45 +47,33 @@ fun ChooseyScreen(navController: NavController, title: String = "CHOOSEY") {
 //            )
             SpringyBouncingLetters(word = title)
         }
-        Box (
+
+        Box(
             modifier = Modifier
                 .weight(2f)
                 .fillMaxWidth(),
-            contentAlignment = Alignment.Center,
-        )
-        {
+            contentAlignment = Alignment.Center
+        ) {
+            // remove the stray "vm" and actually update the state on click
             MainButton(
-                answer = answer.value,
+                answer = answer,
                 onClick = {
-                    answer.value = if (Random.nextBoolean()) "Choosey Said YES" else "Choosey Said NO"
+                    answer = vm.pickRandom()?.let {"Choosey chose $it"} ?:"No choices selected"
                 }
             )
         }
+
         Row(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth(),)
-        {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-            ) {
-                SelectionButton(
-                    onClick = { navController.navigate("Selection") }
-                )
+                .fillMaxWidth()
+        ) {
+            Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+                SelectionButton(onClick = { navController.navigate("Selection") })
             }
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-            ) {
-                SelectionButton(
-                    onClick = { navController.navigate("Selection") }
-                )
+            Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+                SelectionButton(onClick = { navController.navigate("Selection") })
             }
-
         }
-
     }
 }

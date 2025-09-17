@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -32,13 +33,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNav() {
     val navController = rememberNavController()
+    val vm: ChooseyViewModel = viewModel()
 
     NavHost(
         navController = navController,
         startDestination = "Choosey"
     ) {
-        composable("Choosey") { ChooseyScreen(navController) }
-        composable("Selection") { SelectionScreen(navController) }
+        composable("Choosey") { ChooseyScreen(navController, vm) }
+        composable("Selection") { SelectionScreen(navController, vm) }
     }
 }
 
