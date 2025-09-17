@@ -48,8 +48,8 @@ fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
             .background(Color(0xFF3A123E))
+            .padding(20.dp)
     ) {
         Box(
             modifier = Modifier
