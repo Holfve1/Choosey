@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +53,8 @@ fun SpringyBouncingLetters(
                 text = char.toString(),
                 fontSize = 50.sp,
                 fontFamily = FredokaOneFont,
-                modifier = Modifier.offset(y = offsetY.value.dp)
+                modifier = Modifier.offset(y = offsetY.value.dp),
+                color = Color.White
             )
         }
     }
