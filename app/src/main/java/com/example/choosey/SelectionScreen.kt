@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.Button
 
 @Composable
 fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
@@ -49,6 +50,12 @@ fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
             .fillMaxSize()
             .padding(20.dp)
     ) {
+        Button(
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text("Back")
+        }
         Box(
             modifier = Modifier
                 .weight(1f)
