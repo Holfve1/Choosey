@@ -4,26 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.choosey.ui.theme.ChooseyTheme
 
-
 class MainActivity : ComponentActivity() {
+
+    private val vm: ChooseyViewModel by viewModels() // shared ViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge() // your existing function
+
         setContent {
             ChooseyTheme {
-                Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    title = "Choosey"
-                    AppNav()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    AppNav(vm)
                 }
             }
         }
@@ -31,16 +36,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNav() {
+fun AppNav(vm: ChooseyViewModel) {
     val navController = rememberNavController()
-    val vm: ChooseyViewModel = viewModel()
 
     NavHost(
         navController = navController,
-        startDestination = "Choosey"
+        startDestination = "choosey"
     ) {
-        composable("Choosey") { ChooseyScreen(navController, vm) }
-        composable("Selection") { SelectionScreen(navController, vm) }
+        // --- Choosey Screen ---
+        composable("choosey") {
+            ChooseyScreen(
+                navController = navController,
+                vm = vm,
+                title = "Choosey" // keep fixed title
+            )
+        }
+
+        // --- Selection Screen ---
+        composable("Selection") {
+            SelectionScreen(
+                navController = navController,
+                vm = vm
+            )
+        }
     }
 }
 
