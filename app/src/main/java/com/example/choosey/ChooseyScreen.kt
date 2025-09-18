@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Colum
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -125,6 +125,7 @@ fun ChooseyScreen(
             contentAlignment = Alignment.Center
         ) {
             MainButton(
+                answer = answer,
                 onClick = {
                     scope.launch {
                         val picked = vm.pickRandomLabel(categoryId)
