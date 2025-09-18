@@ -28,8 +28,10 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
+
 fun MainButton(answer: String, onClick: () -> Unit) {
     val context = LocalContext.current
+
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
@@ -79,7 +81,7 @@ fun MainButton(answer: String, onClick: () -> Unit) {
             )
 
             Text(
-                text = answer,
+                text = "Help me Choosey",
                 fontSize = 30.sp,
                 lineHeight = 35.sp,
                 textAlign = TextAlign.Center,

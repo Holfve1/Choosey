@@ -27,9 +27,9 @@ import kotlinx.coroutines.launch
 fun ChooseyScreen(
     navController: NavController,
     vm: ChooseyViewModel,
-    title: String = "Choosey"
+    title: String = "CHOOSEY"
 ) {
-    var answer by rememberSaveable { mutableStateOf("Help Me Choosey") }
+    var answer by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
 
@@ -37,7 +37,8 @@ fun ChooseyScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(20.dp),
+            .padding(20.dp)
+            .padding(bottom = 40.dp),
         verticalArrangement = Arrangement.Center
     ) {
         Box(
@@ -53,7 +54,12 @@ fun ChooseyScreen(
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            DisplayAnswer(text = answer)
+            val fallback = answer.isBlank()
+
+            DisplayAnswer(
+                text = if (fallback) "What will Choosey chose for you?" else answer,
+                isFallback = fallback
+            )
         }
 
 
@@ -78,11 +84,10 @@ fun ChooseyScreen(
             contentAlignment = Alignment.Center
         ) {
             MainButton(
-                answer = answer,
                 onClick = {
                     scope.launch {
                         val picked = vm.pickRandomLabel(categoryId)
-                        answer = picked?.let { "Choosey chose $it" } ?: "No choices selected"
+                        answer = picked ?: "No choices selected"
                     }
                 }
             )
