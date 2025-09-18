@@ -135,7 +135,7 @@ fun ChooseyScreen(
         }
 
 
-        // Optional: show current category
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -146,7 +146,7 @@ fun ChooseyScreen(
 
                 text = "Current category: ${if (categoryId == 1L) "Takeaway" 
                 else if (categoryId == 2L) "Movie Genre" 
-                else "Date Night"}",
+                else "Date Night"}",    // this is for adding a category name (not scalable - ask coach)
                 fontSize = 20.sp,
 
                 color = Color.White
