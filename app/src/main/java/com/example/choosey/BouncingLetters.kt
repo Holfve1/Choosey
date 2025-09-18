@@ -1,5 +1,6 @@
 package com.example.choosey
 
+import android.R.attr.text
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -33,28 +34,37 @@ fun SpringyBouncingLetters(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        val colors = listOf(
+            Color(0xFFE57373), // red
+            Color(0xFF64B5F6), // blue
+            Color(0xFF81C784), // green
+            Color(0xFFFFB74D), // orange
+            Color(0xFFBA68C8)  // purple
+        )
+
         word.forEachIndexed { index, char ->
             val offsetY = remember { Animatable(0f) }
 
+            // stagger animation per letter
             LaunchedEffect(Unit) {
-                delay(index * 85L) // stagger per letter
+                delay(index * 85L)
                 offsetY.animateTo(
                     targetValue = -amplitude.value,
                     animationSpec = infiniteRepeatable(
-                        animation = tween(
-                            durationMillis = 700, // time to move up
-                        ),
+                        animation = tween(durationMillis = 700),
                         repeatMode = RepeatMode.Reverse
                     )
                 )
             }
 
+            val color = colors[index % colors.size]
+
             Text(
                 text = char.toString(),
-                fontSize = 50.sp,
+                fontSize = 60.sp,
                 fontFamily = FredokaOneFont,
                 modifier = Modifier.offset(y = offsetY.value.dp),
-                color = Color.White
+                color = color
             )
         }
     }

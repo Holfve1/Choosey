@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Colum
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -104,6 +103,21 @@ fun ChooseyScreen(
             )
         }
 
+
+
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            SelectionButton(
+                onClick = {
+                    navController.navigate("Selection")
+                }
+            )
+        }
+
         Box(
             modifier = Modifier
                 .weight(2f)
@@ -120,16 +134,18 @@ fun ChooseyScreen(
             )
         }
 
+
+        // Optional: show current category
         Box(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(top = 12.dp),
             contentAlignment = Alignment.Center
         ) {
-            SelectionButton(
-                onClick = {
-                    navController.navigate("Selection")
-                }
+            Text(
+                text = "Current category: ${if (categoryId == 1L) "Takeaway" else "Movie Genre"}",
+                fontSize = 20.sp,
+                color = Color.White
             )
         }
     }
