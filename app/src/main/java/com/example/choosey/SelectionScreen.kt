@@ -72,6 +72,14 @@ fun SelectionScreen(
                         expanded = false
                     }
                 )
+                DropdownMenuItem(
+                    text = { Text("Date Night") },
+                    onClick = {
+                        vm.setCategory(3L)
+                        selectedText = "Date Night"
+                        expanded = false
+                    }
+                )
             }
             Button(onClick = { navController.popBackStack() }) { Text("Back") }
 //            Spacer(modifier = Modifier.weight(1f))
