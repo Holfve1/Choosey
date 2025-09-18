@@ -48,7 +48,7 @@ fun AppNav(vm: ChooseyViewModel) {
             ChooseyScreen(
                 navController = navController,
                 vm = vm,
-                title = "Choosey" // keep fixed title
+                title = "CHOOSEY" // keep fixed title
             )
         }
 

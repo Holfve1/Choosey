@@ -4,17 +4,13 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,22 +21,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-
-
 @Composable
 fun MainButton(answer: String, onClick: () -> Unit) {
-
+    val context = LocalContext.current
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
     Button(
-        onClick = onClick,
+        onClick = {
+            playDrumRoll(context) {
+                // after the drum roll completes
+                onClick()
+            }
+        },
         interactionSource = interactionSource,
         modifier = Modifier
             .height(250.dp)
@@ -50,21 +49,19 @@ fun MainButton(answer: String, onClick: () -> Unit) {
             pressedElevation = 6.dp   // pressed effect
         ),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFB22222), // base button color
+            containerColor = Color(0xFFB22222),
             contentColor = Color.White
         ),
         shape = CircleShape,
         border = BorderStroke(0.5.dp, Color.Gray)
     ) {
-        // Box to apply shine and pressed-in effect inside the button content
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape)
-                .background(Color.Transparent), // let Button draw background
+                .background(Color.Transparent),
             contentAlignment = Alignment.Center
         ) {
-            // 🌟 Glossy top-left shine
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -75,13 +72,12 @@ fun MainButton(answer: String, onClick: () -> Unit) {
                                 Color.White.copy(alpha = if (isPressed) 0.15f else 0.35f),
                                 Color.Transparent
                             ),
-                            center = Offset(60f, 60f), // top-left corner shine
+                            center = Offset(60f, 60f),
                             radius = 180f
                         )
                     )
             )
 
-            // Button label
             Text(
                 text = answer,
                 fontSize = 30.sp,
