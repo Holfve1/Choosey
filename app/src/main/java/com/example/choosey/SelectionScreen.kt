@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +26,9 @@ fun SelectionScreen(
             .background(Color(0xFF3A123E))
             .padding(20.dp)
     ) {
+        SpringyBouncingLetters(word = "Choosey")
+
+        Spacer(Modifier.height(12.dp))
         // --- Category switcher ---
         Row(
             modifier = Modifier
@@ -47,7 +51,12 @@ fun SelectionScreen(
                     else MaterialTheme.colorScheme.primary
                 )
             ) { Text("Movie Genre") }
+            Button(onClick = { navController.popBackStack() }) { Text("Back") }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(onClick = { showAddDialog = true }) { Text("Add") }
         }
+        
+        Spacer(Modifier.height(12.dp))
 
         // --- List of items ---
         LazyColumn(
@@ -96,5 +105,33 @@ fun SelectionScreen(
                 color = Color.White
             )
         }
+    }
+
+    if (showAddDialog) {
+        AlertDialog(
+            onDismissRequest = { showAddDialog = false },
+            title = { Text("Add item") },
+            text = {
+                TextField(
+                    value = newItem,
+                    onValueChange = { newItem = it },
+                    singleLine = true
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val t = newItem.trim()
+                    if (t.isNotEmpty()) options.add(t)
+                    newItem = ""
+                    showAddDialog = false
+                }) { Text("Add") }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    newItem = ""
+                    showAddDialog = false
+                }) { Text("Cancel") }
+            }
+        )
     }
 }
