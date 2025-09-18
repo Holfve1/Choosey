@@ -31,4 +31,17 @@ class ChooseyRepository(
             .filter { it.isSelected }
         return if (list.isEmpty()) null else list[Random.nextInt(list.size)]
     }
+
+    // 🔽 NEW: Add a single selection row, with basic duplicate prevention per category
+    suspend fun addSelection(categoryId: Long, rawLabel: String): Result<Long> {
+        val label = rawLabel.trim()
+        if (label.isEmpty()) return Result.failure(IllegalArgumentException("Name empty"))
+
+        val existing = selectionDao.observeByCategory(categoryId).first()
+        val dup = existing.any { it.label.equals(label, ignoreCase = true) }
+        if (dup) return Result.failure(IllegalStateException("Option already exists"))
+
+        val id = selectionDao.insert(Selection(categoryId = categoryId, label = label, isSelected = false))
+        return Result.success(id)
+    }
 }

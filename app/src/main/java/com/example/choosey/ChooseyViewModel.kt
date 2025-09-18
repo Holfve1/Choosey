@@ -3,7 +3,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.choosey.data.repo.ChooseyRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.State
@@ -15,7 +14,10 @@ class ChooseyViewModel(
     // --- Current category state (shared across screens) ---
     private val _currentCategoryId = mutableStateOf(1L) // default Takeaway
     val currentCategoryId: State<Long> get() = _currentCategoryId
-    fun setCategory(id: Long) { _currentCategoryId.value = id }
+
+    fun setCategory(id: Long) {
+        _currentCategoryId.value = id
+    }
 
     // --- Repository access ---
     fun selections(categoryId: Long) = repo.observeSelectionsByCategory(categoryId)
@@ -29,5 +31,12 @@ class ChooseyViewModel(
         val list = repo.observeSelectionsByCategory(categoryId).first()
             .filter { it.isSelected }
         return if (list.isEmpty()) null else list.random().label
+    }
+
+    fun addOption(label: String) {
+        val categoryId = currentCategoryId.value
+        viewModelScope.launch {
+            repo.addSelection(categoryId, label)
+        }
     }
 }
