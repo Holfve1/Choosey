@@ -52,8 +52,8 @@ fun SelectionScreen(
                 )
             ) { Text("Movie Genre") }
             Button(onClick = { navController.popBackStack() }) { Text("Back") }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { showAddDialog = true }) { Text("Add") }
+//            Spacer(modifier = Modifier.weight(1f))
+//            Button(onClick = { showAddDialog = true }) { Text("Add") }
         }
         
         Spacer(Modifier.height(12.dp))
@@ -107,31 +107,31 @@ fun SelectionScreen(
         }
     }
 
-    if (showAddDialog) {
-        AlertDialog(
-            onDismissRequest = { showAddDialog = false },
-            title = { Text("Add item") },
-            text = {
-                TextField(
-                    value = newItem,
-                    onValueChange = { newItem = it },
-                    singleLine = true
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    val t = newItem.trim()
-                    if (t.isNotEmpty()) options.add(t)
-                    newItem = ""
-                    showAddDialog = false
-                }) { Text("Add") }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    newItem = ""
-                    showAddDialog = false
-                }) { Text("Cancel") }
-            }
-        )
-    }
+//    if (showAddDialog) {
+//        AlertDialog(
+//            onDismissRequest = { showAddDialog = false },
+//            title = { Text("Add item") },
+//            text = {
+//                TextField(
+//                    value = newItem,
+//                    onValueChange = { newItem = it },
+//                    singleLine = true
+//                )
+//            },
+//            confirmButton = {
+//                TextButton(onClick = {
+//                    val t = newItem.trim()
+//                    if (t.isNotEmpty()) options.add(t)
+//                    newItem = ""
+//                    showAddDialog = false
+//                }) { Text("Add") }
+//            },
+//            dismissButton = {
+//                TextButton(onClick = {
+//                    newItem = ""
+//                    showAddDialog = false
+//                }) { Text("Cancel") }
+//            }
+//        )
+//    }
 }
