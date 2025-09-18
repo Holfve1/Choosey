@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,6 +50,15 @@ fun ChooseyScreen(navController: NavController, vm: ChooseyViewModel, title: Str
 //                textAlign = TextAlign.Center,
 //            )
             SpringyBouncingLetters(word = title,)
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            DisplayAnswer(text = answer)
         }
 
         Box(
