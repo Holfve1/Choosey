@@ -91,7 +91,7 @@ fun ChooseyScreen(
             )
         }
 
-        // Optional: show current category
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
