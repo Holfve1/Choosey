@@ -11,6 +11,7 @@ object SeedCallback : RoomDatabase.Callback() {
         // Categories
         db.execSQL("INSERT INTO categories (id, name) VALUES (1,'Takeaway')")
         db.execSQL("INSERT INTO categories (id, name) VALUES (2,'Movie Genre')")
+        db.execSQL("INSERT INTO categories (id, name) VALUES (3,'Date Night')")
         // Takeaway selections (categoryId = 1)
         val takeaway = listOf(
             "Chinese","Indian","Pizza","Fish & Chips","Burger","Kebab","Thai","Sushi",
@@ -29,5 +30,13 @@ object SeedCallback : RoomDatabase.Callback() {
         genres.forEach { label ->
             db.execSQL("INSERT INTO selections (categoryId,label,isSelected) VALUES (2,'$label',0)")
         }
+        val datenight = listOf(
+            "Dinner", "Movie", "Bowling", "Drinks", "Board Game", "Karaoke",
+            "Mini Golf", "Nightout", "Dessert Crawl", "Escape Room"
+        )
+        datenight.forEach { label ->
+            db.execSQL("INSERT INTO selections (categoryId,label,isSelected) VALUES (3,'$label',0)")
+        }
+
     }
 }

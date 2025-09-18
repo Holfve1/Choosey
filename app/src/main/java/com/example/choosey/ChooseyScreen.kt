@@ -143,8 +143,12 @@ fun ChooseyScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Current category: ${if (categoryId == 1L) "Takeaway" else "Movie Genre"}",
+
+                text = "Current category: ${if (categoryId == 1L) "Takeaway" 
+                else if (categoryId == 2L) "Movie Genre" 
+                else "Date Night"}",
                 fontSize = 20.sp,
+
                 color = Color.White
             )
         }
