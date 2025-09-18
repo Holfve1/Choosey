@@ -1,5 +1,6 @@
 package com.example.choosey
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,6 +31,7 @@ fun ChooseyScreen(navController: NavController, vm: ChooseyViewModel, title: Str
     var answer by rememberSaveable { mutableStateOf("Help Me Choosey") }
     Column ( modifier = Modifier
         .fillMaxSize()
+        .background(Color(0xFF3A123E))
         .padding(20.dp),
         verticalArrangement = Arrangement.Center
     )
@@ -45,7 +48,7 @@ fun ChooseyScreen(navController: NavController, vm: ChooseyViewModel, title: Str
 //                lineHeight = 116.sp,
 //                textAlign = TextAlign.Center,
 //            )
-            SpringyBouncingLetters(word = title)
+            SpringyBouncingLetters(word = title,)
         }
 
         Box(

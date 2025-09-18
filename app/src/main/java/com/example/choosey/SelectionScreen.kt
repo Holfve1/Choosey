@@ -1,5 +1,8 @@
 package com.example.choosey
 
+import android.renderscript.ScriptGroup
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,7 +67,8 @@ fun SelectionScreen(navController: NavController, vm: ChooseyViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 20.dp, top = 70.dp, end = 20.dp, bottom = 50.dp)
+            .background(Color(0xFF3A123E))
+            .padding(20.dp)
     ) {
         SpringyBouncingLetters(word = "Choosey")
 
