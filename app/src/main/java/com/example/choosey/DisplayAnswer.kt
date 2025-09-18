@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalOf
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun DisplayAnswer(text: String) {
+fun DisplayAnswer(text: String, isFallback: Boolean = false) {
     Column(
         modifier = Modifier
             .background(
@@ -33,19 +34,21 @@ fun DisplayAnswer(text: String) {
             .padding(12.dp)
             .fillMaxWidth()
     ) {
-        Text(
-            text = "Choosey chose...",
-            fontSize = 18.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+        if (!isFallback) {
+            Text(
+                text = "Choosey chose...",
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        Spacer(modifier = Modifier.height(8.dp))  // Optional spacing between texts
+            Spacer(modifier = Modifier.height(8.dp))  // Optional spacing between texts
+        }
 
         Text(
             text = text,
-            fontSize = 28.sp,
+            fontSize = if (isFallback) 22.sp else 30.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
             textAlign = TextAlign.Center,

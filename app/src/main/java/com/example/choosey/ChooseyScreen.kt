@@ -33,7 +33,7 @@ fun ChooseyScreen(
     vm: ChooseyViewModel,
     title: String = "Choosey"
 ) {
-    var answer by rememberSaveable { mutableStateOf("Help Me Choosey") }
+    var answer by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
 
@@ -57,7 +57,12 @@ fun ChooseyScreen(
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            DisplayAnswer(text = answer)
+            val fallback = answer.isBlank()
+
+            DisplayAnswer(
+                text = if (fallback) "What will Choosey chose for you?" else answer,
+                isFallback = fallback
+            )
         }
 
         Box(
@@ -67,11 +72,10 @@ fun ChooseyScreen(
             contentAlignment = Alignment.Center
         ) {
             MainButton(
-                answer = answer,
                 onClick = {
                     scope.launch {
                         val picked = vm.pickRandomLabel(categoryId)
-                        answer = picked?.let { "Choosey chose $it" } ?: "No choices selected"
+                        answer = picked ?: "No choices selected"
                     }
                 }
             )
