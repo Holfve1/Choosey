@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 fun ChooseyScreen(
     navController: NavController,
     vm: ChooseyViewModel,
-    title: String = "Choosey"
+    title: String = "CHOOSEY"
 ) {
     var answer by rememberSaveable { mutableStateOf("Help Me Choosey") }
     val scope = rememberCoroutineScope()
@@ -41,7 +41,8 @@ fun ChooseyScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(20.dp),
+            .padding(20.dp)
+            .padding(bottom = 40.dp),
         verticalArrangement = Arrangement.Center
     ) {
         Box(
