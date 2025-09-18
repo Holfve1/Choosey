@@ -1,18 +1,33 @@
 package com.example.choosey
-
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.choosey.data.repo.ChooseyRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.State
 
-class ChooseyViewModel : ViewModel() {
-    private val _choices = mutableStateListOf<String>()
-    val choices: List<String> get() = _choices
+class ChooseyViewModel(
+    private val repo: ChooseyRepository = AppGraph.repo
+) : ViewModel() {
 
-    fun toggle(option: String) {
-        if (option in _choices) _choices.remove(option) else _choices.add(option)
+    // --- Current category state (shared across screens) ---
+    private val _currentCategoryId = mutableStateOf(1L) // default Takeaway
+    val currentCategoryId: State<Long> get() = _currentCategoryId
+    fun setCategory(id: Long) { _currentCategoryId.value = id }
+
+    // --- Repository access ---
+    fun selections(categoryId: Long) = repo.observeSelectionsByCategory(categoryId)
+    fun selectedAll() = repo.observeAllSelected()
+
+    fun toggleSelection(id: Long) {
+        viewModelScope.launch { repo.toggleSelection(id) }
     }
 
-    // was random(); make it safe for empty lists
-    fun pickRandom(): String? = _choices.randomOrNull()
-
-    fun clear() = _choices.clear()
+    suspend fun pickRandomLabel(categoryId: Long): String? {
+        val list = repo.observeSelectionsByCategory(categoryId).first()
+            .filter { it.isSelected }
+        return if (list.isEmpty()) null else list.random().label
+    }
 }
