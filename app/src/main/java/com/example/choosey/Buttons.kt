@@ -1,5 +1,6 @@
 package com.example.choosey
 
+import android.R.attr.onClick
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -171,13 +172,11 @@ fun SelectionButton(onClick: () -> Unit) {
 //}
 
 @Composable
-fun InfoButton(
-    navController: NavController,
-    modifier: Modifier = Modifier
+fun InfoButton(onClick: () -> Unit
+
 ) {
     IconButton(
-        onClick = { navContorller.navigate("help")},
-        modifier = modifier
+        onClick = onClick,
     ) {
         Icon(
             imageVector = Icons.Default.Info,

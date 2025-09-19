@@ -39,130 +39,111 @@ fun ChooseyScreen(
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(20.dp)
-            .padding(bottom = 40.dp),
-        verticalArrangement = Arrangement.Center
+            .padding(16.dp)
+            .padding(top = 20.dp), // padding so it isn’t stuck to the edges
+        contentAlignment = Alignment.TopEnd,
     ) {
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-            SpringyBouncingLetters(word = title)
-        }
+        InfoButton(
+            onClick = {
+                navController.navigate("help")
+            }
+        )
 
-        // Optional: show current category
         Column(
             modifier = Modifier
-                .background(
-                    color = Color(0xFF00AF6D),
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .border(1.dp, Color.Gray, shape = RoundedCornerShape(12.dp))
-                .padding(12.dp)
-                .fillMaxWidth()
+                .fillMaxSize()
+                .background(Color(0xFF3A123E))
+                .padding(20.dp)
+                .padding(bottom = 40.dp),
+            verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Current category:",
-                fontSize = 18.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                SpringyBouncingLetters(word = title)
+            }
+
+            // Optional: show current category
+            Column(
+                modifier = Modifier
+                    .background(
+                        color = Color(0xFF00AF6D),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .border(1.dp, Color.Gray, shape = RoundedCornerShape(12.dp))
+                    .padding(12.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Current category:",
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "${if (categoryId == 1L) "Takeaway" else "Movie Genre"}",
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "${if (categoryId == 1L) "Takeaway" else "Movie Genre"}",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                val fallback = answer.isBlank()
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Box(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            val fallback = answer.isBlank()
-
-            DisplayAnswer(
-                text = if (fallback) "What will Choosey chose for you?" else answer,
-                isFallback = fallback
-            )
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            SelectionButton(
-                onClick = {
-                    navController.navigate("Selection")
-                }
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .weight(2f)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            MainButton(
-                answer = answer,
-                onClick = {
-                    scope.launch {
-                        val picked = vm.pickRandomLabel(categoryId)
-                        answer = picked ?: "No choices selected"
-                    }
-                }
-            )
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-
-                text = "Current category: ${if (categoryId == 1L) "YES / NO" 
-                else if (categoryId == 2L) "Movie Genre" 
-                else if (categoryId == 3L) "Date Night"
-                else "Takeaway"}",    // this is for adding a category name (not scalable - ask coach)
-                fontSize = 20.sp,
-
-                color = Color.White
-            )
+                DisplayAnswer(
+                    text = if (fallback) "What will Choosey chose for you?" else answer,
+                    isFallback = fallback
+                )
+            }
 
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp) // padding so it isn’t stuck to the edges
+                    .weight(1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
-                // Other screen content above...
-
-                InfoButton(
-                    navController = navController,
-                    modifier = Modifier.align(Alignment.BottomStart) // ✅ bottom-left
+                SelectionButton(
+                    onClick = {
+                        navController.navigate("Selection")
+                    }
                 )
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(2f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                MainButton(
+                    answer = answer,
+                    onClick = {
+                        scope.launch {
+                            val picked = vm.pickRandomLabel(categoryId)
+                            answer = picked ?: "No choices selected"
+                        }
+                    }
+                )
+            }
         }
     }
 }
