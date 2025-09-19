@@ -55,7 +55,7 @@ fun ChooseyScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 35.dp, end = 35.dp, top = 20.dp, bottom = 40.dp),
+                .padding(start = 35.dp, end = 35.dp, top = 20.dp, bottom = 80.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
