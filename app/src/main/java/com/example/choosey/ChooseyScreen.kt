@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,13 @@ fun ChooseyScreen(
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
 
+    val categoryName = when (categoryId) {
+        1L -> "YES / NO"
+        2L -> "Movie Genre"
+        3L -> "Date Night"
+        else -> "Takeaway"
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,38 +62,14 @@ fun ChooseyScreen(
             SpringyBouncingLetters(word = title)
         }
 
-        // Optional: show current category
-        Column(
-            modifier = Modifier
-                .background(
-                    color = Color(0xFF00AF6D),
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .border(1.dp, Color.Gray, shape = RoundedCornerShape(12.dp))
-                .padding(12.dp)
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = "Current category:",
-                fontSize = 18.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+        SelectionButton(
+            onClick = {
+                navController.navigate("Selection")
+            },
+            categoryName = categoryName
+        )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = "${if (categoryId == 1L) "Takeaway" else "Movie Genre"}",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Box(
             modifier = Modifier
@@ -98,21 +82,6 @@ fun ChooseyScreen(
             DisplayAnswer(
                 text = if (fallback) "What will Choosey chose for you?" else answer,
                 isFallback = fallback
-            )
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            SelectionButton(
-                onClick = {
-                    navController.navigate("Selection")
-                }
             )
         }
 
@@ -130,26 +99,6 @@ fun ChooseyScreen(
                         answer = picked ?: "No choices selected"
                     }
                 }
-            )
-        }
-
-
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-
-                text = "Current category: ${if (categoryId == 1L) "YES / NO" 
-                else if (categoryId == 2L) "Movie Genre" 
-                else if (categoryId == 3L) "Date Night"
-                else "Takeaway"}",    // this is for adding a category name (not scalable - ask coach)
-                fontSize = 20.sp,
-
-                color = Color.White
             )
         }
     }
