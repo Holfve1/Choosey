@@ -151,6 +151,18 @@ fun ChooseyScreen(
 
                 color = Color.White
             )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp) // padding so it isn’t stuck to the edges
+            ) {
+                // Other screen content above...
+
+                InfoButton(
+                    navController = navController,
+                    modifier = Modifier.align(Alignment.BottomStart) // ✅ bottom-left
+                )
         }
     }
 }

@@ -7,10 +7,15 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @Composable
@@ -163,3 +169,21 @@ fun SelectionButton(onClick: () -> Unit) {
 //        MainButton(answer = "Help Me Choosey") { println("Pressed!") }
 //    }
 //}
+
+@Composable
+fun InfoButton(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = { navContorller.navigate("help")},
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = Icons.Default.Info,
+            contentDescription = "help",
+            tint = Color.White,
+            modifier = Modifier.size(28.dp)
+        )
+    }
+}
