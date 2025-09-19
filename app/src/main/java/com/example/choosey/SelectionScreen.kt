@@ -37,8 +37,7 @@ fun SelectionScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(20.dp)
-            .padding(top = 40.dp, bottom = 40.dp),
+            .padding(start = 35.dp, end = 35.dp, top = 40.dp, bottom = 40.dp),
     ) {
         SpringyBouncingLetters(word = "CHOOSEY")
 
@@ -49,17 +48,23 @@ fun SelectionScreen(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
-            Button(onClick = { expanded = true }) {
+            Button(
+                onClick = { expanded = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFB74D))
+            ) {
                 Text(
                     text = selectedText,
-                    fontSize = 18.sp
+                    fontSize = 20.sp
                 )
                 Icon(Icons.Default.ArrowDropDown, contentDescription = null)
             }
 
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
             ) {
                 DropdownMenuItem(
                     text = { Text("YES / NO", fontSize = 18.sp) },
@@ -101,16 +106,29 @@ fun SelectionScreen(
         // --- Add & Next buttons centered below dropdown ---
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
                 onClick = { showAddDialog = true },
-                modifier = Modifier.padding(end = 12.dp)
+                modifier = Modifier.height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFBA68C8))
             ) {
-                Text("Add Option", fontSize = 18.sp)
+                Text(
+                    text = "Add option",
+                    fontSize = 20.sp
+                )
             }
-            Button(onClick = { navController.popBackStack() }) {
-                Text("Next", fontSize = 18.sp)
+
+            Button(
+                onClick = { navController.navigate("Choosey") },
+                modifier = Modifier.height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE57373))
+            ) {
+                Text(
+                    text = "Next",
+                    fontSize = 20.sp
+                )
             }
         }
 
@@ -120,8 +138,7 @@ fun SelectionScreen(
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth()
-                .padding(16.dp),
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(items, key = { it.id }) { item ->
@@ -130,10 +147,9 @@ fun SelectionScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
-                        containerColor = if (selected) Color(0xFF99C2FF)
-                        else MaterialTheme.colorScheme.surface,
-                        contentColor = if (selected) MaterialTheme.colorScheme.onPrimaryContainer
-                        else MaterialTheme.colorScheme.onSurface
+                        containerColor = if (selected) Color( 0xFF81C784) // blue for selected
+                        else Color(0xFF64B5F6),         // orange for unselected
+                        contentColor = Color.White
                     ),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = if (selected) 4.dp else 1.dp
