@@ -50,18 +50,12 @@ fun ChooseyScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(start = 35.dp, end = 35.dp, top = 20.dp, bottom = 40.dp) // unified padding
     ) {
-        // Top-right help button
-        InfoButton(
-            onClick = { navController.navigate("help") },
-//            modifier = Modifier.align(Alignment.TopEnd)
-        )
-
         // Main content
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(start = 35.dp, end = 35.dp, top = 20.dp, bottom = 80.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -79,7 +73,7 @@ fun ChooseyScreen(
                 categoryName = categoryName
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Answer / prompt
             Box(
@@ -96,20 +90,26 @@ fun ChooseyScreen(
             }
 
             // Spacer to push button lower nicely
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(40.dp))
 
             // Main action
 
-                MainButton(
-                    answer = answer,
-                    onClick = {
-                        scope.launch {
-                            val picked = vm.pickRandomLabel(categoryId)
-                            answer = picked ?: "No choices selected"
-                        }
+            MainButton(
+                answer = answer,
+                onClick = {
+                    scope.launch {
+                        val picked = vm.pickRandomLabel(categoryId)
+                        answer = picked ?: "No choices selected"
                     }
-                )
-
+                }
+            )
         }
+
+        InfoButton(
+            onClick = { navController.navigate("help") },
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(start = 16.dp, bottom = 16.dp) // spacing from screen edges
+        )
     }
 }

@@ -37,7 +37,7 @@ fun SelectionScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(start = 35.dp, end = 35.dp, top = 40.dp, bottom = 40.dp),
+            .padding(start = 35.dp, end = 35.dp, top = 80.dp, bottom = 40.dp),
     ) {
         SpringyBouncingLetters(word = "CHOOSEY")
 

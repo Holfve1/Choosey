@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -169,17 +170,19 @@ fun SelectionButton(
 //}
 
 @Composable
-fun InfoButton(onClick: () -> Unit
-
+fun InfoButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     IconButton(
         onClick = onClick,
+        modifier = modifier
     ) {
         Icon(
             imageVector = Icons.Default.Info,
             contentDescription = "help",
             tint = Color.White,
-            modifier = Modifier.size(28.dp)
+            modifier = Modifier.size(34.dp)
         )
     }
 }
