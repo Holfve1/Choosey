@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,12 +28,13 @@ fun DisplayAnswer(text: String, isFallback: Boolean = false) {
     Column(
         modifier = Modifier
             .background(
-                color = Color(0xFF003E7E),
+                color = Color(0xFF64B5F6), // old colour - 0xFF003E7E
                 shape = RoundedCornerShape(12.dp)
             )
             .border(1.dp, Color.Gray, shape = RoundedCornerShape(12.dp))
             .padding(12.dp)
             .fillMaxWidth()
+            .wrapContentHeight()
     ) {
         if (!isFallback) {
             Text(
