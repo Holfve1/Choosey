@@ -59,6 +59,11 @@ fun AppNav(vm: ChooseyViewModel) {
                 vm = vm
             )
         }
+        composable("help") {
+            HelpScreen(
+                navController = navController
+            )
+        }
     }
 }
 
