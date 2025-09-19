@@ -11,12 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @Composable
@@ -98,79 +104,6 @@ fun MainButton(answer: String, onClick: () -> Unit) {
     }
 }
 
-//@Composable
-//fun SelectionButton(
-//    onClick: () -> Unit,
-//    categoryName: String
-//) {
-//    val interactionSource = remember { MutableInteractionSource() }
-//    val isPressed by interactionSource.collectIsPressedAsState()
-//
-//    Button(
-//        onClick = onClick,
-//        interactionSource = interactionSource,
-//        modifier = Modifier
-//            .height(150.dp)
-//            .width(150.dp),
-//        elevation = ButtonDefaults.buttonElevation(
-//            defaultElevation = 20.dp, // visible raised effect
-//            pressedElevation = 6.dp   // pressed effect
-//        ),
-//        colors = ButtonDefaults.buttonColors(
-//            containerColor = Color(0xFFFFC107), // base button color
-//            contentColor = Color.White
-//        ),
-//        shape = CircleShape,
-//        border = BorderStroke(0.5.dp, Color.Gray)
-//    ) {
-//        // Box to apply shine and pressed-in effect inside the button content
-//        Box(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .clip(CircleShape)
-//                .background(Color.Transparent), // let Button draw background
-//            contentAlignment = Alignment.Center
-//        ) {
-//            // 🌟 Glossy top-left shine
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .clip(CircleShape)
-//                    .background(
-//                        Brush.radialGradient(
-//                            colors = listOf(
-//                                Color.White.copy(alpha = if (isPressed) 0.15f else 0.35f),
-//                                Color.Transparent
-//                            ),
-//                            center = Offset(60f, 60f), // top-left corner shine
-//                            radius = 180f
-//                        )
-//                    )
-//            )
-//
-//            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                Text(
-//                    text = "Choosey Category:",
-//                    fontSize = 15.sp,
-//                    lineHeight = 20.sp,
-//                    textAlign = TextAlign.Center,
-//                    color = Color.White
-//                )
-//
-//                Spacer(modifier = Modifier.height(6.dp))
-//
-//                Text(
-//                    text = categoryName,
-//                    fontSize = 12.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    color = Color.White,
-//                    textAlign = TextAlign.Center
-//                )
-//            }
-//        }
-//    }
-//}
-
 
 @Composable
 fun SelectionButton(
@@ -233,3 +166,21 @@ fun SelectionButton(
 //        MainButton(answer = "Help Me Choosey") { println("Pressed!") }
 //    }
 //}
+
+@Composable
+fun InfoButton(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = { navContorller.navigate("help")},
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = Icons.Default.Info,
+            contentDescription = "help",
+            tint = Color.White,
+            modifier = Modifier.size(28.dp)
+        )
+    }
+}
