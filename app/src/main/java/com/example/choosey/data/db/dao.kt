@@ -21,6 +21,9 @@ interface SelectionDao {
     fun observeSelected(): Flow<List<Selection>>
     @Insert
     suspend fun insertAll(selections: List<Selection>)
+    // 🔽 NEW: insert a single selection row
+    @Insert
+    suspend fun insert(selection: Selection): Long
     @Update
     suspend fun update(selection: Selection)
     @Query("UPDATE selections SET isSelected = NOT isSelected WHERE id = :id")

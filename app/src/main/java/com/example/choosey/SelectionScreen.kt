@@ -16,11 +16,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+
 @Composable
 fun SelectionScreen(
     navController: NavController,
     vm: ChooseyViewModel
 ) {
+    // Dialog state
+    var showAddDialog by remember { mutableStateOf(false) }
+    var newItem by remember { mutableStateOf("") }
+
     val categoryId by vm.currentCategoryId
     val items by vm.selections(categoryId).collectAsState(initial = emptyList())
 
@@ -38,12 +43,14 @@ fun SelectionScreen(
         SpringyBouncingLetters(word = "CHOOSEY")
 
         Spacer(Modifier.height(12.dp))
+
         // --- Category switcher ---
+
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 12.dp),
+                .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(onClick = { expanded = true }) {
@@ -80,10 +87,21 @@ fun SelectionScreen(
                         expanded = false
                     }
                 )
-            }
+
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+
             Button(onClick = { navController.popBackStack() }) { Text("Back") }
-//            Spacer(modifier = Modifier.weight(1f))
-//            Button(onClick = { showAddDialog = true }) { Text("Add") }
+            Button(onClick = { showAddDialog = true }) { Text("Add") }
         }
 
         Spacer(Modifier.height(12.dp))
@@ -136,32 +154,40 @@ fun SelectionScreen(
             )
         }
     }
+
+// --- Add option dialog ---
+    if (showAddDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                newItem = ""
+                showAddDialog = false
+            },
+            title = { Text("Add an option") },
+            text = {
+                OutlinedTextField(
+                    value = newItem,
+                    onValueChange = { newItem = it },
+                    label = { Text("Option name") },
+                    singleLine = true
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    val trimmed = newItem.trim()
+                    if (trimmed.isNotEmpty()) {
+                        vm.addOption(trimmed)
+                    }
+                    newItem = ""
+                    showAddDialog = false
+                }) { Text("Add") }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    newItem = ""
+                    showAddDialog = false
+                }) { Text("Cancel") }
+            }
+        )
+    }
 }
-//    if (showAddDialog) {
-//        AlertDialog(
-//            onDismissRequest = { showAddDialog = false },
-//            title = { Text("Add item") },
-//            text = {
-//                TextField(
-//                    value = newItem,
-//                    onValueChange = { newItem = it },
-//                    singleLine = true
-//                )
-//            },
-//            confirmButton = {
-//                TextButton(onClick = {
-//                    val t = newItem.trim()
-//                    if (t.isNotEmpty()) options.add(t)
-//                    newItem = ""
-//                    showAddDialog = false
-//                }) { Text("Add") }
-//            },
-//            dismissButton = {
-//                TextButton(onClick = {
-//                    newItem = ""
-//                    showAddDialog = false
-//                }) { Text("Cancel") }
-//            }
-//        )
-//    }
 
