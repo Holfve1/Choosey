@@ -39,27 +39,46 @@ fun ChooseyScreen(
     var answer by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
-
     val categoryName = when (categoryId) {
         1L -> "YES / NO"
         2L -> "Movie Genre"
         3L -> "Date Night"
         else -> "Takeaway"
-    }
+        }
 
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF3A123E))
+            .padding(16.dp)
+            .padding(top = 20.dp), // padding so it isn’t stuck to the edges
+        contentAlignment = Alignment.TopEnd,
+      
+      {
+        InfoButton(
+            onClick = {
+                navController.navigate("help")
+            }
+            )
+
+  
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
             .padding(start = 35.dp, end = 35.dp, bottom = 40.dp),
         verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-            SpringyBouncingLetters(word = title)
-        }
+
+    ) 
+      
+
+{
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                SpringyBouncingLetters(word = title)
+            }
 
         SelectionButton(
             onClick = {
@@ -70,19 +89,22 @@ fun ChooseyScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Box(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            val fallback = answer.isBlank()
 
-            DisplayAnswer(
-                text = if (fallback) "What will Choosey chose for you?" else answer,
-                isFallback = fallback
-            )
-        }
+
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                val fallback = answer.isBlank()
+
+                DisplayAnswer(
+                    text = if (fallback) "What will Choosey chose for you?" else answer,
+                    isFallback = fallback
+                )
+            }        
+            }
 
         Box(
             modifier = Modifier
@@ -99,6 +121,7 @@ fun ChooseyScreen(
                     }
                 }
             )
+
         }
     }
 }

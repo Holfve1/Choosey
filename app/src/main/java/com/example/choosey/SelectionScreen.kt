@@ -215,17 +215,20 @@ fun SelectionScreen(
             }
 
         )
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .padding(top = 20.dp), // padding so it isn’t stuck to the edges
+        contentAlignment = Alignment.TopEnd,
+    ) {
+        // Other screen content above...
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp) // padding so it isn’t stuck to the edges
-        ) {
-            // Other screen content above...
-
-            InfoButton(
-                navController = navController,
-                modifier = Modifier.align(Alignment.BottomStart) // ✅ bottom-left
-            )
+        InfoButton(
+            onClick = {
+                navController.navigate("help")
+            }
+        )
     }
 }
