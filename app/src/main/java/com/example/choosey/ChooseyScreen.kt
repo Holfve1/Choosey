@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun ChooseyScreen(
     navController: NavController,
@@ -39,40 +38,34 @@ fun ChooseyScreen(
     var answer by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val categoryId by vm.currentCategoryId
+
     val categoryName = when (categoryId) {
         1L -> "YES / NO"
         2L -> "Movie Genre"
         3L -> "Date Night"
         else -> "Takeaway"
-        }
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF3A123E))
-            .padding(16.dp)
-            .padding(top = 20.dp), // padding so it isn’t stuck to the edges
-        contentAlignment = Alignment.TopEnd,
-      
-      {
+            .padding(start = 35.dp, end = 35.dp, top = 20.dp, bottom = 40.dp) // unified padding
+    ) {
+        // Top-right help button
         InfoButton(
-            onClick = {
-                navController.navigate("help")
-            }
-            )
+            onClick = { navController.navigate("help") },
+//            modifier = Modifier.align(Alignment.TopEnd)
+        )
 
-  
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF3A123E))
-            .padding(start = 35.dp, end = 35.dp, bottom = 40.dp),
-        verticalArrangement = Arrangement.Center
-
-    ) 
-      
-
-{
+        // Main content
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Title
             Box(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
@@ -80,17 +73,15 @@ fun ChooseyScreen(
                 SpringyBouncingLetters(word = title)
             }
 
-        SelectionButton(
-            onClick = {
-                navController.navigate("Selection")
-            },
-            categoryName = categoryName
-        )
+            // Category picker
+            SelectionButton(
+                onClick = { navController.navigate("Selection") },
+                categoryName = categoryName
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-
-
+            // Answer / prompt
             Box(
                 modifier = Modifier
                     .padding(vertical = 16.dp)
@@ -98,29 +89,26 @@ fun ChooseyScreen(
                 contentAlignment = Alignment.Center
             ) {
                 val fallback = answer.isBlank()
-
                 DisplayAnswer(
-                    text = if (fallback) "What will Choosey chose for you?" else answer,
+                    text = if (fallback) "What will Choosey choose for you?" else answer,
                     isFallback = fallback
                 )
-            }        
             }
 
-        Box(
-            modifier = Modifier
-                .weight(2f)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            MainButton(
-                answer = answer,
-                onClick = {
-                    scope.launch {
-                        val picked = vm.pickRandomLabel(categoryId)
-                        answer = picked ?: "No choices selected"
+            // Spacer to push button lower nicely
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Main action
+
+                MainButton(
+                    answer = answer,
+                    onClick = {
+                        scope.launch {
+                            val picked = vm.pickRandomLabel(categoryId)
+                            answer = picked ?: "No choices selected"
+                        }
                     }
-                }
-            )
+                )
 
         }
     }
