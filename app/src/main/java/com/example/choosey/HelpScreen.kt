@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -59,7 +61,7 @@ fun HelpScreen(
             modifier = Modifier
                 .weight(6f)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp) // larger spacing between blocks
         ) {
             // Header
             item {
@@ -75,29 +77,39 @@ fun HelpScreen(
 
             // Intro
             item {
-                Text(
-                    text = "Welcome to Choosey – your fun little helper for when you just can’t decide! \n 🎲✨",
-                    fontSize = 15.sp,
-                    lineHeight = 18.sp,
-                    color = Color.White
-                )
-            }
-            item {
-                Text(
-                    text = "This guide will walk you through how to use the app.",
-                    fontSize = 15.sp,
-                    lineHeight = 18.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "Welcome to Choosey – your fun little helper for when you just can’t decide! 🎲✨",
+                        fontSize = 16.sp,
+                        lineHeight = 20.sp,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "This guide will walk you through how to use the app.",
+                        fontSize = 16.sp,
+                        lineHeight = 20.sp,
+                        color = Color.White
+                    )
+                }
             }
 
             // Home Screen
             item {
-                Text(
-                    text = "🏠 Home Screen (Choosey Screen)\n\nThe big round red button is the heart of the app.",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "🏠 Home Screen",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "The big round red button is the heart of the app.",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
             item {
                 Image(
@@ -105,22 +117,30 @@ fun HelpScreen(
                     contentDescription = "Help me Choosey button"
                 )
             }
-
             item {
                 Text(
                     text = "Tap “Help Me Choosey” → Choosey will randomly pick from your selected options (by default either no options or YES / NO will be selected).",
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                     color = Color.White
                 )
             }
 
             // Categories
             item {
-                Text(
-                    text = "📂 Choosing Categories\n\nTap the “Choose Category” button at the top of the Home Screen to pick which category Choosey should decide on.",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "📂 Choosing Categories",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Tap the “Choose Category” button at the top of the Home Screen, which will take you to the Category Options screen, where you can pick which category Choosey should decide on.",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
             item {
                 Image(
@@ -137,11 +157,20 @@ fun HelpScreen(
 
             // Add option
             item {
-                Text(
-                    text = "➕ Adding Your Own Options\n\nOn the Category Selection screen, below the dropdown, tap “Add Option” to add your own custom choice.",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "➕ Adding Your Own Options",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "On the Category Selection screen, below the dropdown, tap “Add Option” to add your own custom choice.",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
             item {
                 Image(
@@ -158,11 +187,20 @@ fun HelpScreen(
 
             // Selecting items
             item {
-                Text(
-                    text = "✅ Selecting Items\n\nYou’ll see a list of options for the chosen category. Tap an option to select it. Selected items change colour and appear in the summary.",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "✅ Selecting Items",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "You’ll see a list of options for the chosen category. Tap an option to select it. Selected items change colour and appear in the summary.",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
             item {
                 Image(
@@ -171,28 +209,22 @@ fun HelpScreen(
                 )
             }
 
-            // Display chosen
-            item {
-                Text(
-                    text = "Once you’ve chosen, you’ll see what Choosey picked:",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
-            }
-            item {
-                Image(
-                    painter = painterResource(R.drawable.chosen_display),
-                    contentDescription = "Chosen display"
-                )
-            }
-
             // Navigating back
             item {
-                Text(
-                    text = "🔙 Navigating Back\n\nOnce you’ve selected your options, tap Next to return to the home screen.",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "🔙 Navigating Back",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Once you’ve selected your options, tap Next to return to the home screen.",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
             item {
                 Image(
@@ -201,14 +233,49 @@ fun HelpScreen(
                 )
             }
 
+            // Display chosen
+            item {
+                Column {
+                    Text(
+                        text = "🎉 Displaying Your Result",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Once you’ve finished selecting the category and options, press that Help me Choosey button and you’ll see what Choosey picked:",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
+            }
+            item {
+                Image(
+                    painter = painterResource(R.drawable.chosen_display),
+                    contentDescription = "Chosen display"
+                )
+            }
+
+
+
             // Tips
             item {
-                Text(
-                    text = "🔔 Tips\n\n• You can switch categories anytime; selections per category are saved.\n• Adding personal options makes it more fun (restaurants, activities, etc.).\n• Great in groups for deciding what to eat or watch! 🎉",
-                    fontSize = 15.sp,
-                    color = Color.White
-                )
+                Column {
+                    Text(
+                        text = "🔔 Tips",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "• You can switch categories anytime; selections per category are saved.\n• Adding personal options makes it more fun (restaurants, activities, etc.).\n• Great in groups for deciding what to eat or watch! 🎉",
+                        fontSize = 16.sp,
+                        color = Color.White
+                    )
+                }
             }
         }
     }
-    }
+}
