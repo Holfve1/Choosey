@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -145,9 +143,10 @@ fun ChooseyScreen(
         ) {
             Text(
 
-                text = "Current category: ${if (categoryId == 1L) "Takeaway" 
+                text = "Current category: ${if (categoryId == 1L) "YES / NO" 
                 else if (categoryId == 2L) "Movie Genre" 
-                else "Date Night"}",    // this is for adding a category name (not scalable - ask coach)
+                else if (categoryId == 3L) "Date Night"
+                else "Takeaway"}",    // this is for adding a category name (not scalable - ask coach)
                 fontSize = 20.sp,
 
                 color = Color.White

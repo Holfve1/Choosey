@@ -64,9 +64,18 @@ fun SelectionScreen(
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Takeaway") },
+                    text = { Text("YES / NO") },
                     onClick = {
                         vm.setCategory(1L)          // update VM
+                        selectedText = "YES / NO"   // update button label
+                        expanded = false            // close menu
+                    }
+                )
+
+                DropdownMenuItem(
+                    text = { Text("Takeaway") },
+                    onClick = {
+                        vm.setCategory(4L)          // update VM
                         selectedText = "Takeaway"   // update button label
                         expanded = false            // close menu
                     }
