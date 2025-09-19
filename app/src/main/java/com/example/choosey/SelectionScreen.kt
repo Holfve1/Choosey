@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+
 @Composable
 fun SelectionScreen(
     navController: NavController,
@@ -37,51 +38,47 @@ fun SelectionScreen(
             .fillMaxSize()
             .background(Color(0xFF3A123E))
             .padding(20.dp)
-            .padding(top = 40.dp)
-            .padding(bottom = 40.dp),
+            .padding(top = 40.dp, bottom = 40.dp),
     ) {
         SpringyBouncingLetters(word = "CHOOSEY")
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(20.dp))
 
-        // --- Category switcher ---
-
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+        // --- Dropdown centered at the top ---
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
         ) {
             Button(onClick = { expanded = true }) {
-                Text(selectedText)
+                Text(
+                    text = selectedText,
+                    fontSize = 18.sp
+                )
                 Icon(Icons.Default.ArrowDropDown, contentDescription = null)
             }
 
-            // Dropdown menu
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("YES / NO") },
+                    text = { Text("YES / NO", fontSize = 18.sp) },
                     onClick = {
-                        vm.setCategory(1L)          // update VM
-                        selectedText = "YES / NO"   // update button label
-                        expanded = false            // close menu
-                    }
-                )
-
-                DropdownMenuItem(
-                    text = { Text("Takeaway") },
-                    onClick = {
-                        vm.setCategory(4L)          // update VM
-                        selectedText = "Takeaway"   // update button label
-                        expanded = false            // close menu
+                        vm.setCategory(1L)
+                        selectedText = "YES / NO"
+                        expanded = false
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Movie Genre") },
+                    text = { Text("Takeaway", fontSize = 18.sp) },
+                    onClick = {
+                        vm.setCategory(4L)
+                        selectedText = "Takeaway"
+                        expanded = false
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Movie Genre", fontSize = 18.sp) },
                     onClick = {
                         vm.setCategory(2L)
                         selectedText = "Movie Genre"
@@ -89,31 +86,35 @@ fun SelectionScreen(
                     }
                 )
                 DropdownMenuItem(
-                    text = { Text("Date Night") },
+                    text = { Text("Date Night", fontSize = 18.sp) },
                     onClick = {
                         vm.setCategory(3L)
                         selectedText = "Date Night"
                         expanded = false
                     }
                 )
-
-            )
+            }
         }
 
+        Spacer(Modifier.height(20.dp))
+
+        // --- Add & Next buttons centered below dropdown ---
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
-
-
-            Button(onClick = { navController.popBackStack() }) { Text("Back") }
-            Button(onClick = { showAddDialog = true }) { Text("Add") }
+            Button(
+                onClick = { showAddDialog = true },
+                modifier = Modifier.padding(end = 12.dp)
+            ) {
+                Text("Add Option", fontSize = 18.sp)
+            }
+            Button(onClick = { navController.popBackStack() }) {
+                Text("Next", fontSize = 18.sp)
+            }
         }
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(20.dp))
 
         // --- List of items ---
         LazyColumn(
@@ -158,13 +159,13 @@ fun SelectionScreen(
             Text(
                 text = if (selectedLabels.isEmpty()) "No selections yet"
                 else selectedLabels.joinToString(", "),
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 color = Color.White
             )
         }
     }
 
-// --- Add option dialog ---
+    // --- Add option dialog ---
     if (showAddDialog) {
         AlertDialog(
             onDismissRequest = {
@@ -199,4 +200,3 @@ fun SelectionScreen(
         )
     }
 }
-
