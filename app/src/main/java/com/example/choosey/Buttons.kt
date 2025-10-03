@@ -153,7 +153,7 @@ fun SelectionButton(
             ) {
                 Box {
                     Text(
-                        text = "Change Category:",
+                        text = "Change Selection:",
                         fontSize = 18.sp,
                         color = Color.White,
                         textAlign = TextAlign.Center
