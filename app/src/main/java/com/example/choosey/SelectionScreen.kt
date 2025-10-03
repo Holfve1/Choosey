@@ -147,8 +147,8 @@ fun SelectionScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
-                        containerColor = if (selected) Color( 0xFF81C784) // blue for selected
-                        else Color(0xFF64B5F6),         // orange for unselected
+                        containerColor = if (selected) Color( 0xFF81C784)  // blue for selected
+                        else Color.Gray,         // orange for unselected
                         contentColor = Color.White
                     ),
                     elevation = CardDefaults.cardElevation(
