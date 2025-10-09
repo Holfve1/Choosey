@@ -12,7 +12,7 @@ class ChooseyViewModel(
 ) : ViewModel() {
 
     // --- Current category state (shared across screens) ---
-    private val _currentCategoryId = mutableStateOf(1L) // default Takeaway
+    private val _currentCategoryId = mutableStateOf(1L)
     val currentCategoryId: State<Long> get() = _currentCategoryId
 
     fun setCategory(id: Long) {
@@ -42,4 +42,8 @@ class ChooseyViewModel(
             repo.addSelection(categoryId, label)
         }
     }
+    fun deleteById(id: Long) = viewModelScope.launch {
+        repo.deleteById(id)
+    }
+
 }

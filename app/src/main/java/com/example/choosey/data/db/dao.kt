@@ -32,4 +32,6 @@ interface SelectionDao {
     suspend fun toggle(id: Long)
     @Query("DELETE FROM selections")
     suspend fun clear()
+    @Query("DELETE FROM selections WHERE id = :id")
+    suspend fun deleteById(id: Long)
 }

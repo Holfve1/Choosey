@@ -177,7 +177,7 @@ fun SelectionScreen(
 
                 Card(
                     modifier = Modifier
-                        .fillMaxWidth(0.75f)
+                        .fillMaxWidth()
                         .height(50.dp),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
@@ -190,11 +190,21 @@ fun SelectionScreen(
                     )
                 )
                 {
-                    Text(
-                        text = item.label,
-                        modifier = Modifier.padding(14.dp),
-                        fontSize = 18.sp
-                    )
+                   Row(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .padding(horizontal = 14.dp, vertical = 8.dp),
+                       horizontalArrangement = Arrangement.SpaceBetween,
+                       verticalAlignment = Alignment.CenterVertically
+                   ) {
+                        Text(
+                            text = item.label,
+                            fontSize = 18.sp
+                        )
+                        DeleteButton(
+                            onClick = { vm.deleteById(item.id) }
+                        )
+                    }
                 }
             }
         }
