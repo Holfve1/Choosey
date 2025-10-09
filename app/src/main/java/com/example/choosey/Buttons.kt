@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -112,37 +113,14 @@ fun SelectionButton(
     onClick: () -> Unit,
     categoryName: String
 ) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        shape = RoundedCornerShape(12.dp),
-        elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 6.dp,
-            pressedElevation = 2.dp
-        ),
-        border = BorderStroke(1.dp, Color.Gray),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFFB74D),
-            contentColor = Color.White
-        )
-    ) {
-        Column(
+    Column(verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally){
+        Box (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Choosey Category:",
-                fontSize = 18.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
+                .padding(bottom = 16.dp),
+            contentAlignment = Alignment.Center
+        ){
             Text(
                 text = categoryName,
                 fontSize = 30.sp,
@@ -151,6 +129,43 @@ fun SelectionButton(
                 textAlign = TextAlign.Center
             )
         }
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            shape = RoundedCornerShape(12.dp),
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 6.dp,
+                pressedElevation = 2.dp
+            ),
+            border = BorderStroke(1.dp, Color.Gray),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFFB74D),
+                contentColor = Color.White
+            )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box {
+                    Text(
+                        text = "Change Selection:",
+                        fontSize = 18.sp,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+                //            Spacer(modifier = Modifier.height(8.dp))
+
+
+                }
+            }
+
     }
 }
 
