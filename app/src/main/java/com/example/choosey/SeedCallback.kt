@@ -23,9 +23,7 @@ object SeedCallback : RoomDatabase.Callback() {
         }
 
         val takeaway = listOf(
-            "Chinese","Indian","Pizza","Fish & Chips","Burger","Kebab","Thai","Sushi",
-            "Japanese","Mexican","Fried Chicken","Greek","Turkish","Korean","Vietnamese",
-            "Malaysian","BBQ","Italian","Falafel","Biryani"
+            "Chinese","Indian","Pizza","Fish & Chips","Burger","Kebab","Thai","Sushi", "Mexican","Fried Chicken","Greek","Turkish","Korean","Vietnamese", "Italian","Lebanese",
         )
         takeaway.forEach { label ->
             db.execSQL("INSERT INTO selections (categoryId,label,isSelected) VALUES (4,'$label',0)")
@@ -33,15 +31,15 @@ object SeedCallback : RoomDatabase.Callback() {
         // Movie genre selections (categoryId = 2)
         val genres = listOf(
             "Action","Comedy","Drama","Horror","Sci-Fi","Fantasy","Romance","Thriller",
-            "Mystery","Animation","Documentary","Adventure","Crime","Family","War",
-            "Western","Musical","Biography","History","Sport"
+            "Mystery","Animation","Documentary","Adventure","Crime","Family",
+            "Western","Musical"
         )
         genres.forEach { label ->
             db.execSQL("INSERT INTO selections (categoryId,label,isSelected) VALUES (2,'$label',0)")
         }
         val datenight = listOf(
             "Dinner", "Movie", "Bowling", "Drinks", "Board Game", "Karaoke",
-            "Mini Golf", "Nightout", "Dessert Crawl", "Escape Room"
+            "Mini Golf", "Night Out", "Desert Crawl", "Escape Room"
         )
         datenight.forEach { label ->
             db.execSQL("INSERT INTO selections (categoryId,label,isSelected) VALUES (3,'$label',0)")
