@@ -50,4 +50,22 @@ class ChooseyRepository(
         val id = selectionDao.insert(Selection(categoryId = categoryId, label = label, isSelected = false))
         return Result.success(id)
     }
+
+    // 🔽 NEW: Add a single category row, with basic duplicate prevention per category
+    suspend fun addCategory(rawName: String): Result<Long> {
+        val name = rawName.trim()
+        if (name.isEmpty()) return Result.failure(IllegalArgumentException("Name empty"))
+
+        val existing = categoryDao.observeAll().first()
+        val dup = existing.any { it.name.equals(name, ignoreCase = true) }
+        if (dup) return Result.failure(IllegalStateException("Category already exists"))
+
+        val id = categoryDao.insert(Category(name = name))
+        return Result.success(id)
+    }
+
+    suspend fun deleteCategory(id: Long) {
+        categoryDao.deleteById(id)
+    }
+
 }

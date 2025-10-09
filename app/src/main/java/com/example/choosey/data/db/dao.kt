@@ -10,8 +10,10 @@ interface CategoryDao {
     fun observeWithSelections(id: Long): Flow<CategoryWithSelections>
     @Insert
     suspend fun insertAll(categories: List<Category>)
-    @Query("DELETE FROM categories")
-    suspend fun clear()
+    @Insert
+    suspend fun insert(category: Category): Long
+    @Query("DELETE FROM categories WHERE id = :id")
+    suspend fun deleteById(id: Long)
 }
 @Dao
 interface SelectionDao {

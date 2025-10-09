@@ -19,6 +19,8 @@ class ChooseyViewModel(
         _currentCategoryId.value = id
     }
 
+    val categories = repo.observeCategories()
+
     // --- Repository access ---
     fun selections(categoryId: Long) = repo.observeSelectionsByCategory(categoryId)
     fun selectedAll() = repo.observeAllSelected()
@@ -44,6 +46,26 @@ class ChooseyViewModel(
     }
     fun deleteById(id: Long) = viewModelScope.launch {
         repo.deleteById(id)
+
+
+    fun addCategory(name: String, onAdded: (Long) -> Unit) {
+        viewModelScope.launch {
+            val result = repo.addCategory(name)
+            result.onSuccess { id -> onAdded(id) }
+            // Optionally handle failure with result.onFailure { ... }
+        }
+    }
+
+
+    suspend fun getCategoryName(id: Long): String {
+        val categories = repo.observeCategories().first()
+        return categories.find { it.id == id }?.name ?: "Unknown"
+    }
+
+    fun deleteCategory(id: Long) {
+        viewModelScope.launch {
+            repo.deleteCategory(id)
+        }
     }
 
 }

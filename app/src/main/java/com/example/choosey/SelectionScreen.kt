@@ -2,15 +2,39 @@ package com.example.choosey
 import android.R
 import android.graphics.Paint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.SearchBarDefaults.colors
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,12 +44,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 
+
+
 @Composable
 fun SelectionScreen(
     navController: NavController,
     vm: ChooseyViewModel
 ) {
-    // Dialog state
+    val categories by vm.categories.collectAsState(initial = emptyList())
     var showAddDialog by remember { mutableStateOf(false) }
     var newItem by remember { mutableStateOf("") }
 
@@ -34,6 +60,12 @@ fun SelectionScreen(
 
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf("Choose Category") }
+
+    var showAddCategoryDialog by remember { mutableStateOf(false) }
+    var newCategoryName by remember { mutableStateOf("") }
+
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    var categoryToDelete by remember { mutableStateOf<Long?>(null) }
 
     Column(
         modifier = Modifier
@@ -57,10 +89,7 @@ fun SelectionScreen(
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFB74D))
             ) {
-                Text(
-                    text = selectedText,
-                    fontSize = 20.sp
-                )
+                Text(text = selectedText, fontSize = 20.sp)
                 Icon(Icons.Default.ArrowDropDown, contentDescription = null)
             }
 
@@ -69,69 +98,74 @@ fun SelectionScreen(
                 onDismissRequest = { expanded = false },
             ) {
                 DropdownMenuItem(
-                    text = { Text("YES / NO", fontSize = 18.sp) },
+                    text = { Text("Add Category ➕", fontSize = 18.sp) },
                     onClick = {
-                        vm.setCategory(1L)
-                        selectedText = "YES / NO"
                         expanded = false
+                        showAddCategoryDialog = true
                     }
                 )
-                DropdownMenuItem(
-                    text = { Text("Takeaway", fontSize = 18.sp) },
-                    onClick = {
-                        vm.setCategory(4L)
-                        selectedText = "Takeaway"
-                        expanded = false
-                    }
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    thickness = 1.dp,
+                    color = Color.LightGray
                 )
-                DropdownMenuItem(
-                    text = { Text("Movie Genre", fontSize = 18.sp) },
-                    onClick = {
-                        vm.setCategory(2L)
-                        selectedText = "Movie Genre"
-                        expanded = false
+
+                categories.forEach { category ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(category.name, fontSize = 18.sp) },
+                            onClick = {
+                                vm.setCategory(category.id)
+                                selectedText = category.name
+                                expanded = false
+                            },
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        if (category.id > 4) {
+                            IconButton(onClick = {
+                                categoryToDelete = category.id
+                                showDeleteDialog = true
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = "Delete category",
+                                    tint = Color.Black
+                                )
+                            }
+                        }
                     }
-                )
-                DropdownMenuItem(
-                    text = { Text("Date Night", fontSize = 18.sp) },
-                    onClick = {
-                        vm.setCategory(3L)
-                        selectedText = "Date Night"
-                        expanded = false
-                    }
-                )
+                }
             }
         }
 
         Spacer(Modifier.height(20.dp))
 
-        // --- Add & Next buttons centered below dropdown ---
+        // --- Add & Continue buttons ---
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(
+            AddOptionButton(
                 onClick = { showAddDialog = true },
                 modifier = Modifier.height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFBA68C8))
-            ) {
-                Text(
-                    text = "Add option",
-                    fontSize = 20.sp
-                )
-            }
+            )
 
             Button(
                 onClick = { navController.navigate("Choosey") },
                 modifier = Modifier.height(56.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE57373))
             ) {
-                Text(
-                    text = "Continue",
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center
-                )
+                Text(text = "Continue", fontSize = 20.sp, textAlign = TextAlign.Center)
             }
         }
 
@@ -181,8 +215,7 @@ fun SelectionScreen(
                         .height(50.dp),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
-                        containerColor = if (selected) Color( 0xFF81C784)  // blue for selected
-                        else Color.Gray,         // orange for unselected
+                        containerColor = if (selected) Color(0xFF81C784) else Color.Gray,
                         contentColor = Color.White
                     ),
                     elevation = CardDefaults.cardElevation(
@@ -224,56 +257,121 @@ fun SelectionScreen(
                 color = Color.White
             )
         }
-    }
 
-    // --- Add option dialog ---
-    if (showAddDialog) {
-        AlertDialog(
-            onDismissRequest = {
-                newItem = ""
-                showAddDialog = false
-            },
-            title = { Text("Add an option") },
-            text = {
-                OutlinedTextField(
-                    value = newItem,
-                    onValueChange = { newItem = it },
-                    label = { Text("Option name") },
-                    singleLine = true
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    val trimmed = newItem.trim()
-                    if (trimmed.isNotEmpty()) {
-                        vm.addOption(trimmed)
+        // --- Info Button ---
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            InfoButton(onClick = { navController.navigate("help") })
+        }
+
+        // --- Add Option Dialog ---
+        if (showAddDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    newItem = ""
+                    showAddDialog = false
+                },
+                title = { Text("Add an option") },
+                text = {
+                    OutlinedTextField(
+                        value = newItem,
+                        onValueChange = { newItem = it },
+                        label = { Text("Option name") },
+                        singleLine = true
+                    )
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        val trimmed = newItem.trim()
+                        if (trimmed.isNotEmpty()) {
+                            vm.addOption(trimmed)
+                        }
+                        newItem = ""
+                        showAddDialog = false
+                    }) { Text("Add") }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        newItem = ""
+                        showAddDialog = false
+                    }) { Text("Cancel") }
+                }
+            )
+        }
+
+        // --- Add Category Dialog ---
+        if (showAddCategoryDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    newCategoryName = ""
+                    showAddCategoryDialog = false
+                },
+                title = { Text("Add a new category") },
+                text = {
+                    OutlinedTextField(
+                        value = newCategoryName,
+                        onValueChange = { newCategoryName = it },
+                        label = { Text("Category name") },
+                        singleLine = true
+                    )
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        val trimmed = newCategoryName.trim()
+                        if (trimmed.isNotEmpty()) {
+                            vm.addCategory(trimmed) { newId ->
+                                vm.setCategory(newId)
+                                selectedText = trimmed
+                            }
+                        }
+                        newCategoryName = ""
+                        showAddCategoryDialog = false
+                    }) { Text("Add") }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        newCategoryName = ""
+                        showAddCategoryDialog = false
+                    }) { Text("Cancel") }
+                }
+            )
+        }
+
+        // --- Delete Category Confirmation Dialog ---
+        if (showDeleteDialog && categoryToDelete != null) {
+            AlertDialog(
+                onDismissRequest = {
+                    showDeleteDialog = false
+                    categoryToDelete = null
+                },
+                title = { Text("Delete Category") },
+                text = { Text("Are you sure you want to delete this category and all its options?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        vm.deleteCategory(categoryToDelete!!)
+                        if (categoryToDelete == categoryId) {
+                            vm.setCategory(1L)
+                            selectedText = "Choose Category"
+                        }
+                        showDeleteDialog = false
+                        categoryToDelete = null
+                    }) {
+                        Text("Delete", color = Color.Red)
                     }
-                    newItem = ""
-                    showAddDialog = false
-                }) { Text("Add") }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    newItem = ""
-                    showAddDialog = false
-                }) { Text("Cancel") }
-            }
-
-        )
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .padding(top = 20.dp), // padding so it isn’t stuck to the edges
-        contentAlignment = Alignment.TopEnd,
-    ) {
-        // Other screen content above...
-
-        InfoButton(
-            onClick = {
-                navController.navigate("help")
-            }
-        )
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        showDeleteDialog = false
+                        categoryToDelete = null
+                    }) {
+                        Text("Cancel")
+                    }
+                }
+            )
+        }
     }
 }
