@@ -78,14 +78,13 @@ fun ChooseyScreen(
             // Answer / prompt
             Box(
                 modifier = Modifier
+                    .weight(1f)
                     .padding(vertical = 16.dp)
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                val fallback = answer.isBlank()
                 DisplayAnswer(
-                    text = if (fallback) "What will Choosey choose for you?" else answer,
-                    isFallback = fallback
+                    text = answer,
                 )
             }
 
