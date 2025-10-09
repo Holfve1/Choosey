@@ -1,5 +1,6 @@
 package com.example.choosey
 import android.R
+import android.graphics.Paint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -136,6 +137,33 @@ fun SelectionScreen(
 
         Spacer(Modifier.height(20.dp))
 
+        var selectAll by remember { mutableStateOf(false) }
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            onClick = { selectAll = !selectAll },
+            colors = CardDefaults.cardColors(
+                containerColor = if (selectAll) Color( 0xFF81C784)  // blue for selected
+                else Color.Gray,         // orange for unselected
+                contentColor = Color.White
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = if (selectAll) 4.dp else 1.dp
+            )
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = if (!selectAll) " SELECT ALL" else "DESELECT ALL",
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
         // --- List of items ---
         LazyColumn(
             modifier = Modifier
@@ -143,10 +171,14 @@ fun SelectionScreen(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
             items(items, key = { it.id }) { item ->
                 val selected = item.isSelected
+
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth(0.75f)
+                        .height(50.dp),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
                         containerColor = if (selected) Color( 0xFF81C784)  // blue for selected
@@ -156,11 +188,12 @@ fun SelectionScreen(
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = if (selected) 4.dp else 1.dp
                     )
-                ) {
+                )
+                {
                     Text(
                         text = item.label,
-                        modifier = Modifier.padding(16.dp),
-                        fontSize = 20.sp
+                        modifier = Modifier.padding(14.dp),
+                        fontSize = 18.sp
                     )
                 }
             }
