@@ -26,6 +26,8 @@ interface SelectionDao {
     suspend fun insert(selection: Selection): Long
     @Update
     suspend fun update(selection: Selection)
+    @Query("UPDATE selections SET isSelected = :select WHERE categoryId = :categoryId")
+    suspend fun setAllSelected(categoryId: Long, select: Boolean): Int
     @Query("UPDATE selections SET isSelected = NOT isSelected WHERE id = :id")
     suspend fun toggle(id: Long)
     @Query("DELETE FROM selections")

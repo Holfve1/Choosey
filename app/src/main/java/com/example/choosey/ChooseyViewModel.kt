@@ -27,6 +27,9 @@ class ChooseyViewModel(
         viewModelScope.launch { repo.toggleSelection(id) }
     }
 
+    fun setAllSelected(categoryId: Long, select: Boolean) = viewModelScope.launch {
+        repo.setAllSelected(categoryId, select)
+    }
     suspend fun pickRandomLabel(categoryId: Long): String? {
         val list = repo.observeSelectionsByCategory(categoryId).first()
             .filter { it.isSelected }

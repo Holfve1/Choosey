@@ -137,19 +137,19 @@ fun SelectionScreen(
 
         Spacer(Modifier.height(20.dp))
 
-        var selectAll by remember { mutableStateOf(false) }
+        val allSelected = items.isNotEmpty() && items.all { it.isSelected }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
-            onClick = { selectAll = !selectAll },
+            onClick = {  vm.setAllSelected(categoryId, select = !allSelected) },
             colors = CardDefaults.cardColors(
-                containerColor = if (selectAll) Color( 0xFF81C784)  // blue for selected
+                containerColor = if (allSelected) Color( 0xFF81C784)  // blue for selected
                 else Color.Gray,         // orange for unselected
                 contentColor = Color.White
             ),
             elevation = CardDefaults.cardElevation(
-                defaultElevation = if (selectAll) 4.dp else 1.dp
+                defaultElevation = if (allSelected) 4.dp else 1.dp
             )
         ) {
             Box(
@@ -157,7 +157,7 @@ fun SelectionScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = if (!selectAll) " SELECT ALL" else "DESELECT ALL",
+                    text = if (!allSelected) " SELECT ALL" else "DESELECT ALL",
                     modifier = Modifier.padding(16.dp),
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center
