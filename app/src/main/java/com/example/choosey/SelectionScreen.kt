@@ -13,6 +13,7 @@ import androidx.compose.material3.SearchBarDefaults.colors
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -126,8 +127,9 @@ fun SelectionScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE57373))
             ) {
                 Text(
-                    text = "Next",
-                    fontSize = 20.sp
+                    text = "Continue",
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -147,8 +149,8 @@ fun SelectionScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
-                        containerColor = if (selected) Color( 0xFF81C784) // blue for selected
-                        else Color(0xFF64B5F6),         // orange for unselected
+                        containerColor = if (selected) Color( 0xFF81C784)  // blue for selected
+                        else Color.Gray,         // orange for unselected
                         contentColor = Color.White
                     ),
                     elevation = CardDefaults.cardElevation(

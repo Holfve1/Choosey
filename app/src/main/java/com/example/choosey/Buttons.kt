@@ -97,7 +97,7 @@ fun MainButton(answer: String, onClick: () -> Unit) {
             )
 
             Text(
-                text = "Help me Choosey",
+                text = "Click me to Choosey",
                 fontSize = 30.sp,
                 lineHeight = 35.sp,
                 textAlign = TextAlign.Center,
