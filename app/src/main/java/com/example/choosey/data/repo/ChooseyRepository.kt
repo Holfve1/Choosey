@@ -31,6 +31,12 @@ class ChooseyRepository(
             .filter { it.isSelected }
         return if (list.isEmpty()) null else list[Random.nextInt(list.size)]
     }
+    suspend fun setAllSelected(categoryId: Long, select: Boolean): Int {
+        return selectionDao.setAllSelected(categoryId, select)
+    }
+    suspend fun deleteById(id: Long) {
+        selectionDao.deleteById(id)
+    }
 
     // 🔽 NEW: Add a single selection row, with basic duplicate prevention per category
     suspend fun addSelection(categoryId: Long, rawLabel: String): Result<Long> {

@@ -1,4 +1,6 @@
 package com.example.choosey
+import android.R
+import android.graphics.Paint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -169,6 +171,33 @@ fun SelectionScreen(
 
         Spacer(Modifier.height(20.dp))
 
+        val allSelected = items.isNotEmpty() && items.all { it.isSelected }
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            onClick = {  vm.setAllSelected(categoryId, select = !allSelected) },
+            colors = CardDefaults.cardColors(
+                containerColor = if (allSelected) Color( 0xFF81C784)  // blue for selected
+                else Color.Gray,         // orange for unselected
+                contentColor = Color.White
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = if (allSelected) 4.dp else 1.dp
+            )
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = if (!allSelected) " SELECT ALL" else "DESELECT ALL",
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
         // --- List of items ---
         LazyColumn(
             modifier = Modifier
@@ -176,10 +205,14 @@ fun SelectionScreen(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
             items(items, key = { it.id }) { item ->
                 val selected = item.isSelected
+
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
                     onClick = { vm.toggleSelection(item.id) },
                     colors = CardDefaults.cardColors(
                         containerColor = if (selected) Color(0xFF81C784) else Color.Gray,
@@ -188,12 +221,23 @@ fun SelectionScreen(
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = if (selected) 4.dp else 1.dp
                     )
-                ) {
-                    Text(
-                        text = item.label,
-                        modifier = Modifier.padding(16.dp),
-                        fontSize = 20.sp
-                    )
+                )
+                {
+                   Row(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .padding(horizontal = 14.dp, vertical = 8.dp),
+                       horizontalArrangement = Arrangement.SpaceBetween,
+                       verticalAlignment = Alignment.CenterVertically
+                   ) {
+                        Text(
+                            text = item.label,
+                            fontSize = 18.sp
+                        )
+                        DeleteButton(
+                            onClick = { vm.deleteById(item.id) }
+                        )
+                    }
                 }
             }
         }
