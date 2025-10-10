@@ -119,7 +119,7 @@ fun HelpScreen(
             }
             item {
                 Text(
-                    text = "Tap the big red button → Choosey will randomly pick from your selected options (by default Takeaway is selected but no options have been added).",
+                    text = "Tap the big red button → Choosey will randomly pick from your selected options (the default category is Takeaway, but no options have been added).",
                     fontSize = 16.sp,
                     color = Color.White
                 )
