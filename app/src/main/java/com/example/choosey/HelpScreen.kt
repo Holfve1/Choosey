@@ -119,7 +119,7 @@ fun HelpScreen(
             }
             item {
                 Text(
-                    text = "Tap “Help Me Choosey” → Choosey will randomly pick from your selected options (by default either no options or YES / NO will be selected).",
+                    text = "Tap the big red button → Choosey will randomly pick from your selected options (by default Takeaway is selected but no options have been added).",
                     fontSize = 16.sp,
                     color = Color.White
                 )
@@ -136,7 +136,7 @@ fun HelpScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Tap the “Choose Category” button at the top of the Home Screen, which will take you to the Category Options screen, where you can pick which category Choosey should decide on.",
+                        text = "Tap the little edit icon under the category at the top of the Home Screen, this will take you to the Edit screen, where you can pick which category Choosey should decide on and the options that come within.",
                         fontSize = 16.sp,
                         color = Color.White
                     )
@@ -196,7 +196,7 @@ fun HelpScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "You’ll see a list of options for the chosen category. Tap an option to select it. Selected items change colour and appear in the summary.",
+                        text = "You’ll see a list of options for the chosen category. Tap an option to select it. Selected items change colour and appear in the summary at the bottom. You can also use the select all button to select all options at once or use it to deselect everything.",
                         fontSize = 16.sp,
                         color = Color.White
                     )
@@ -220,7 +220,7 @@ fun HelpScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Once you’ve selected your options, tap Next to return to the home screen.",
+                        text = "Once you’ve selected your options, tap Continue to return to the home screen.",
                         fontSize = 16.sp,
                         color = Color.White
                     )
@@ -244,7 +244,7 @@ fun HelpScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Once you’ve finished selecting the category and options, press that Help me Choosey button and you’ll see what Choosey picked:",
+                        text = "Once you’ve finished selecting the category and options, press that big red button button and you’ll see what Choosey picked:",
                         fontSize = 16.sp,
                         color = Color.White
                     )
