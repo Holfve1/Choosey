@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,7 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
@@ -82,7 +85,7 @@ fun ChooseyScreen(
             }
 
             // Spacer to push button lower nicely
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Main action
 
@@ -95,13 +98,14 @@ fun ChooseyScreen(
                     }
                 }
             )
+            Spacer(modifier = Modifier.height(20.dp))
         }
 
         InfoButton(
             onClick = { navController.navigate("help") },
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(start = 16.dp, bottom = 16.dp) // spacing from screen edges
+                .padding(start = 16.dp, bottom = 50.dp) // spacing from screen edges
         )
     }
 }
