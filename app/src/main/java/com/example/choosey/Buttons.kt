@@ -59,8 +59,8 @@ fun MainButton(answer: String, onClick: () -> Unit) {
         },
         interactionSource = interactionSource,
         modifier = Modifier
-            .height(320.dp)
-            .width(320.dp),
+            .height(280.dp)
+            .width(280.dp),
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 20.dp, // visible raised effect
             pressedElevation = 6.dp   // pressed effect
