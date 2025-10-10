@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -109,14 +110,15 @@ fun MainButton(answer: String, onClick: () -> Unit) {
 @Composable
 fun SelectionButton(
     onClick: () -> Unit,
-    categoryName: String
+    categoryName: String,
+    modifier: Modifier = Modifier
 ) {
     Column(verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
         Column (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .padding(bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -124,52 +126,29 @@ fun SelectionButton(
                 fontSize = 17.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                lineHeight = 20.sp,
-            )
-            Text(
-                text = categoryName,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                textAlign = TextAlign.Center
             )
         }
-        Button(
+        Text(
+            text = categoryName,
+            fontSize = 50.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFFFFB74D),
+            textAlign = TextAlign.Center
+        )
+        IconButton(
             onClick = onClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            shape = RoundedCornerShape(12.dp),
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 6.dp,
-                pressedElevation = 2.dp
-            ),
-            border = BorderStroke(1.dp, Color.Gray),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFB74D),
-                contentColor = Color.White
-            )
+            modifier = modifier
         ) {
-            Column(
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit",
+                tint = Color(0xFF3A123E),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box {
-                    Text(
-                        text = "Change Selection:",
-                        fontSize = 18.sp,
-                        color = Color.White,
-                        textAlign = TextAlign.Center
-                    )
-                }
-
-                //            Spacer(modifier = Modifier.height(8.dp))
-
-
-                }
-            }
+                    .size(30.dp)
+                    .background(Color.White, shape = CircleShape) // 👈 background here
+                    .padding(4.dp) // 👈 optional, so the icon isn't squashed
+            )
+        }
 
     }
 }
