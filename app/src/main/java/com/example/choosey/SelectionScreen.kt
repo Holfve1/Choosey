@@ -10,9 +10,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Delete
@@ -66,6 +70,10 @@ fun SelectionScreen(
 
     var showDeleteDialog by remember { mutableStateOf(false) }
     var categoryToDelete by remember { mutableStateOf<Long?>(null) }
+
+    var showDeleteOptionDialog by remember { mutableStateOf(false) }
+    var optionToDelete by remember { mutableStateOf<Long?>(null) }
+
 
     Column(
         modifier = Modifier
@@ -234,25 +242,34 @@ fun SelectionScreen(
                             text = item.label,
                             fontSize = 18.sp
                         )
-                        DeleteButton(
-                            onClick = { vm.deleteById(item.id) }
-                        )
-                    }
+
+                       DeleteButton(
+                           onClick = {
+                               optionToDelete = item.id
+                               showDeleteOptionDialog = true
+                           }
+                       )
+
+                   }
                 }
             }
         }
 
         // --- Selected summary ---
+        Spacer(modifier = Modifier.height(16.dp))
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 12.dp),
+                .heightIn(max = 95.dp) // Set your desired max height here
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp, vertical = 12.dp),
             contentAlignment = Alignment.CenterStart
         ) {
             val selectedLabels = items.filter { it.isSelected }.map { it.label }
             Text(
                 text = if (selectedLabels.isEmpty()) "No selections yet"
-                else selectedLabels.joinToString(", "),
+                else "Selected: ${selectedLabels.joinToString(", ")}",
                 fontSize = 18.sp,
                 color = Color.White
             )
@@ -263,7 +280,7 @@ fun SelectionScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            contentAlignment = Alignment.TopEnd
+            contentAlignment = Alignment.CenterStart
         ) {
             InfoButton(onClick = { navController.navigate("help") })
         }
@@ -340,6 +357,36 @@ fun SelectionScreen(
                 }
             )
         }
+
+
+        if (showDeleteOptionDialog && optionToDelete != null) {
+            AlertDialog(
+                onDismissRequest = {
+                    showDeleteOptionDialog = false
+                    optionToDelete = null
+                },
+                title = { Text("Delete Option") },
+                text = { Text("Are you sure you want to delete this option?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        vm.deleteById(optionToDelete!!)
+                        showDeleteOptionDialog = false
+                        optionToDelete = null
+                    }) {
+                        Text("Delete", color = Color.Red)
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        showDeleteOptionDialog = false
+                        optionToDelete = null
+                    }) {
+                        Text("Cancel")
+                    }
+                }
+            )
+        }
+
 
         // --- Delete Category Confirmation Dialog ---
         if (showDeleteDialog && categoryToDelete != null) {
