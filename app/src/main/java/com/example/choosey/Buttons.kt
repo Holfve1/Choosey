@@ -42,28 +42,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+
 @Composable
-
-fun MainButton(answer: String, onClick: () -> Unit) {
+fun MainButton(
+    answer: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    fontSize: Int = 30 // default font size
+) {
     val context = LocalContext.current
-
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
     Button(
         onClick = {
             playDrumRoll(context) {
-                // after the drum roll completes
                 onClick()
             }
         },
         interactionSource = interactionSource,
-        modifier = Modifier
-            .height(280.dp)
-            .width(280.dp),
+        modifier = modifier
+            .size(280.dp), // default size, can be overridden
         elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 20.dp, // visible raised effect
-            pressedElevation = 6.dp   // pressed effect
+            defaultElevation = 20.dp,
+            pressedElevation = 6.dp
         ),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFFB22222),
@@ -97,14 +99,15 @@ fun MainButton(answer: String, onClick: () -> Unit) {
 
             Text(
                 text = "Click me to Choosey",
-                fontSize = 30.sp,
-                lineHeight = 35.sp,
+                fontSize = fontSize.sp,
+                lineHeight = (fontSize + 5).sp,
                 textAlign = TextAlign.Center,
                 color = Color.White
             )
         }
     }
 }
+
 
 
 @Composable
@@ -221,7 +224,7 @@ fun AddOptionButton(
     ) {
         Text(
             text = "Add Option",
-            fontSize = 20.sp,
+            fontSize = 16.sp,
             textAlign = TextAlign.Center
         )
     }
