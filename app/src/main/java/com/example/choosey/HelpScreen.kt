@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -119,7 +120,7 @@ fun HelpScreen(
             }
             item {
                 Text(
-                    text = "Tap the big red button → Choosey will randomly pick from your selected options (the default category is Takeaway, but no options have been added).",
+                    text = "Tap the big red button → Choosey will randomly pick from your selected options (the default category is Takeaway, but at the start, no options have been added).",
                     fontSize = 16.sp,
                     color = Color.White
                 )
@@ -136,7 +137,7 @@ fun HelpScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "Tap the little edit icon under the category at the top of the Home Screen, this will take you to the Edit screen, where you can pick which category Choosey should decide on and the options that come within.",
+                        text = "Tap the little edit icon under the category at the top of the Home Screen, this will take you to the Edit screen, where you can pick or create which category Choosey should decide on and the options that come within.",
                         fontSize = 16.sp,
                         color = Color.White
                     )
@@ -145,12 +146,15 @@ fun HelpScreen(
             item {
                 Image(
                     painter = painterResource(R.drawable.category_button),
-                    contentDescription = "Category button"
+                    contentDescription = "Category button",
+                    modifier = Modifier
+                        .size(120.dp) // 👈 makes it square (width & height)
+                        .padding(8.dp)
                 )
             }
             item {
                 Image(
-                    painter = painterResource(R.drawable.category_select),
+                    painter = painterResource(R.drawable.category_select2),
                     contentDescription = "Category dropdown options"
                 )
             }
@@ -205,6 +209,12 @@ fun HelpScreen(
             item {
                 Image(
                     painter = painterResource(R.drawable.options_list),
+                    contentDescription = "Options list with selections"
+                )
+            }
+            item {
+                Image(
+                    painter = painterResource(R.drawable.options_list2),
                     contentDescription = "Options list with selections"
                 )
             }
