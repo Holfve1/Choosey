@@ -1,5 +1,7 @@
 package com.example.choosey
 
+import android.R.attr.maxHeight
+import android.R.attr.maxWidth
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.text.font.FontWeight
@@ -216,7 +219,23 @@ fun DeleteButton(
 fun AddOptionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
-) {
+
+)
+{
+    val screenWidth = maxWidth
+    val screenHeight = maxHeight
+    val screenDpWidth = LocalConfiguration.current.screenWidthDp
+    val screenSizeCategory = when {
+        screenDpWidth < 360 -> "small"
+        screenDpWidth in 360..480 -> "medium"
+        else -> "large"
+    }
+    val fontSize = when (screenSizeCategory) {
+        "small" -> 12.sp
+        "medium" -> 18.sp
+        else -> 22.sp
+    }
+
     Button(
         onClick = onClick,
         modifier = modifier,
@@ -224,8 +243,8 @@ fun AddOptionButton(
     ) {
         Text(
             text = "Add Option",
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center
+            fontSize = fontSize,
+            textAlign = TextAlign.Center,
         )
     }
 }
