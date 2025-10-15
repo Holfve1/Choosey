@@ -60,9 +60,25 @@ fun ChooseyScreen(
         val verticalSpacing = (screenHeight * 0.02f).coerceAtLeast(12.dp)
 
         val titleFontSize = if (isCompact) 36 else 60
-        val answerFontSize = if (isCompact) 32 else 50
-        val buttonFontSize = if (isCompact) 24 else 30
-        val buttonSize = if (screenHeight < 600.dp) 200.dp else 280.dp
+        val answerFontSize = when {
+            screenWidth < 320.dp -> 26
+            screenWidth < 360.dp -> 54
+            else -> 30
+        }
+
+        val buttonFontSize = when {
+            screenWidth < 320.dp -> 20
+            screenWidth < 360.dp -> 24
+            screenWidth < 480.dp -> 28
+            else -> 28
+        }
+
+        val buttonSize = when {
+            screenWidth < 320.dp -> 160.dp
+            screenWidth < 360.dp -> 200.dp
+            screenWidth < 480.dp -> 240.dp
+            else -> 280.dp
+        }
 
         Column(
             modifier = Modifier
