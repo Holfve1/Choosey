@@ -127,7 +127,8 @@ fun SelectionScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+                .padding(horizontal = horizontalPadding, vertical = verticalPadding + 5.dp)
+                .padding(top = 18.dp)
         ) {
             SpringyBouncingLetters(word = "CHOOSEY", fontSize = titleFontSize)
 
