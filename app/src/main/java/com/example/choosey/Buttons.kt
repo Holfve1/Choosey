@@ -118,6 +118,9 @@ fun SelectionButton(
     categoryName: String,
     modifier: Modifier = Modifier
 ) {
+    val fontSize = if (categoryName.length < 10) 50 else 25
+    val lineHeight = fontSize + 5
+
     Column(verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
         Column (
@@ -135,7 +138,8 @@ fun SelectionButton(
         }
         Text(
             text = categoryName,
-            fontSize = 50.sp,
+            fontSize = fontSize.sp,
+            lineHeight = lineHeight.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFFFFB74D),
             textAlign = TextAlign.Center

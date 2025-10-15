@@ -355,8 +355,8 @@ fun SelectionScreen(
                     text = {
                         OutlinedTextField(
                             value = newCategoryName,
-                            onValueChange = { newCategoryName = it },
-                            label = { Text("Category name") },
+                            onValueChange = { if (it.length <= 28) newCategoryName = it },
+                            label = { Text("Category Name | 28 Characters ") },
                             singleLine = true
                         )
                     },
