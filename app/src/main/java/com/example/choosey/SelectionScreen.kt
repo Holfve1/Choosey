@@ -317,7 +317,7 @@ fun SelectionScreen(
                         newItem = ""
                         showAddDialog = false
                     },
-                    title = { Text("Add an option") },
+                    title = { Text("Add a new option") },
                     text = {
 
                         OutlinedTextField(
@@ -325,7 +325,7 @@ fun SelectionScreen(
                             onValueChange = {
                                 if (it.length <= 17) newItem = it
                             },
-                            label = { Text("Option name") },
+                            label = { Text("Max 17 Characters") },
                             singleLine = true
                         )
 
@@ -360,7 +360,7 @@ fun SelectionScreen(
                         OutlinedTextField(
                             value = newCategoryName,
                             onValueChange = { if (it.length <= 28) newCategoryName = it },
-                            label = { Text("Category Name | 28 Characters ") },
+                            label = { Text("Max 28 Characters") },
                             singleLine = true
                         )
                     },
