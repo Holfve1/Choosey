@@ -319,12 +319,16 @@ fun SelectionScreen(
                     },
                     title = { Text("Add an option") },
                     text = {
+
                         OutlinedTextField(
                             value = newItem,
-                            onValueChange = { newItem = it },
+                            onValueChange = {
+                                if (it.length <= 17) newItem = it
+                            },
                             label = { Text("Option name") },
                             singleLine = true
                         )
+
                     },
                     confirmButton = {
                         TextButton(onClick = {
