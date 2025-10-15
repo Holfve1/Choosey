@@ -61,8 +61,7 @@ fun MainButton(
             }
         },
         interactionSource = interactionSource,
-        modifier = modifier
-            .size(280.dp), // default size, can be overridden
+        modifier = modifier,
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 20.dp,
             pressedElevation = 6.dp
