@@ -1,36 +1,29 @@
 package com.example.choosey
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalOf
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+
 @Composable
-fun DisplayAnswer(text: String, isFallback: Boolean = false) {
-    Column()
-    {
+fun DisplayAnswer(
+    text: String,
+    isFallback: Boolean = false,
+    fontSize: Int = 50 // Accept font size as an Int (sp)
+) {
+    Column {
         Text(
             text = text,
-            fontSize = 50.sp,
-            lineHeight = 55.sp,
+            fontSize = fontSize.sp,
+            lineHeight = (fontSize + 5).sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
             textAlign = TextAlign.Center,
@@ -38,6 +31,7 @@ fun DisplayAnswer(text: String, isFallback: Boolean = false) {
         )
     }
 }
+
 
 @Preview
 @Composable

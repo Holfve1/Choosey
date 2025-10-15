@@ -24,10 +24,12 @@ import com.example.choosey.ui.theme.FredokaOneFont
 import kotlinx.coroutines.delay
 
 
+
 @Composable
 fun SpringyBouncingLetters(
     word: String = "CHOOSEY",
-    amplitude: Dp = 30.dp
+    amplitude: Dp = 30.dp,
+    fontSize: Int = 60 // Accept font size as an Int (sp)
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -45,7 +47,6 @@ fun SpringyBouncingLetters(
         word.forEachIndexed { index, char ->
             val offsetY = remember { Animatable(0f) }
 
-            // stagger animation per letter
             LaunchedEffect(Unit) {
                 delay(index * 85L)
                 offsetY.animateTo(
@@ -61,7 +62,7 @@ fun SpringyBouncingLetters(
 
             Text(
                 text = char.toString(),
-                fontSize = 60.sp,
+                fontSize = fontSize.sp,
                 fontFamily = FredokaOneFont,
                 modifier = Modifier.offset(y = offsetY.value.dp),
                 color = color
