@@ -41,8 +41,12 @@ fun AppNav(vm: ChooseyViewModel) {
 
     NavHost(
         navController = navController,
-        startDestination = "choosey"
+        startDestination = "splash"
     ) {
+        composable("splash") {
+            SplashScreen(navController)
+        }
+
         // --- Choosey Screen ---
         composable("choosey") {
             ChooseyScreen(
